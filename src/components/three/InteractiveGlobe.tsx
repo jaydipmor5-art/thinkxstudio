@@ -87,8 +87,9 @@ export default function InteractiveGlobe() {
     }
     const texture = new THREE.CanvasTexture(canvasDot);
 
+    const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.32,
+      size: isMobileDevice ? 0.22 : 0.32,
       vertexColors: true,
       map: texture,
       transparent: true,
@@ -198,10 +199,16 @@ export default function InteractiveGlobe() {
 
       // 1. Shift position horizontally on desktop (starts shifted right at x=4.5, slides to center x=0 on scroll)
       const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+      const isMobileDevice = typeof window !== "undefined" && window.innerWidth < 768;
       const shiftX = isMobile ? 0 : 4.5 * (1 - scrollProgress);
+      const shiftY = isMobileDevice ? -2.2 : 0;
+      
       globePoints.position.x = shiftX;
+      globePoints.position.y = shiftY;
       innerGlobe.position.x = shiftX;
+      innerGlobe.position.y = shiftY;
       linesGroup.position.x = shiftX;
+      linesGroup.position.y = shiftY;
 
       // Soft base rotation
       globePoints.rotation.y = elapsedTime * 0.08;
@@ -220,7 +227,8 @@ export default function InteractiveGlobe() {
       linesGroup.rotation.x += (targetY - linesGroup.rotation.x) * 0.05;
 
       // 2. Scale Up / Expand on Scroll (Normal scale is 1, scales up to 2.2)
-      const scaleVal = 1 + scrollProgress * 1.2;
+      const baseScale = isMobileDevice ? 0.6 : 1.0;
+      const scaleVal = (1 + scrollProgress * 1.2) * baseScale;
       globePoints.scale.set(scaleVal, scaleVal, scaleVal);
       innerGlobe.scale.set(scaleVal, scaleVal, scaleVal);
       linesGroup.scale.set(scaleVal, scaleVal, scaleVal);

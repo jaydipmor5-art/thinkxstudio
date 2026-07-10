@@ -9,11 +9,11 @@ import { ArrowRight, Sparkles, Code, Cpu, Award, Rocket, Phone } from "lucide-re
 export default function Hero() {
   const { t } = useTranslate();
 
-  const brandLogos = [
-    { name: "CarePartner", icon: "CP" },
+  const brandLogos: Array<{ name: string; image?: string; icon?: string }> = [
+    { name: "CarePartner", image: "/carepartner.png" },
     { name: "HDE Pvt Ltd", image: "/hde pvt ltd.png" },
-    { name: "Health Hub", icon: "HH" },
-    { name: "CarePartner City", icon: "CPC" },
+    { name: "Health Hub", image: "/health_hub.png" },
+    { name: "CarePartner City", image: "/carepartner_city.png" },
   ];
 
   return (
@@ -73,10 +73,6 @@ export default function Hero() {
 
           {/* Subtext info badges */}
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-12 text-zinc-500 text-xs font-semibold uppercase tracking-wider">
-            <div className="flex items-center gap-1.5">
-              <Code size={14} className="text-accent-cyan" />
-              <span>React 19 / Next.js 15</span>
-            </div>
             <div className="flex items-center gap-1.5">
               <Cpu size={14} className="text-accent-purple" />
               <span>Gemini AI Integrations</span>
