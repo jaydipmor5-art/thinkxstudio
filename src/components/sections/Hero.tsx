@@ -89,7 +89,7 @@ export default function Hero() {
       </div>
 
       {/* Infinite scrolling Client Logo Wall */}
-      <div className="w-full border-y border-zinc-200/60 bg-white/20 py-8 mt-12 relative overflow-hidden pointer-events-none">
+      <div className="w-full border-y border-zinc-200/60 bg-white/20 py-6 mt-12 relative overflow-hidden pointer-events-auto">
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
         
@@ -98,7 +98,7 @@ export default function Hero() {
           {[...brandLogos, ...brandLogos, ...brandLogos, ...brandLogos].map((logo, idx) => (
             <div
               key={`${logo.name}-${idx}`}
-              className="flex items-center gap-2 select-none opacity-60 hover:opacity-85 transition-opacity"
+              className="flex flex-col items-center gap-2 select-none opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer"
             >
               {logo.image ? (
                 <img
@@ -114,6 +114,10 @@ export default function Hero() {
                   <span>{logo.name}</span>
                 </div>
               )}
+              {/* Brand name vertically below the logo */}
+              <span className="text-[9px] md:text-[10px] tracking-[0.25em] font-extrabold text-zinc-500 dark:text-zinc-400 uppercase">
+                {logo.name}
+              </span>
             </div>
           ))}
         </div>
