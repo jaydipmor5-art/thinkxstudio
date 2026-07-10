@@ -78,14 +78,16 @@ export default function FloatingCTA() {
 
       {/* Primary Toggle Action */}
       <div className="flex gap-2">
-        {/* Directly toggle AI Chatbot shortcut */}
-        <button
-          onClick={handleChatToggle}
+        {/* WhatsApp direct chat link */}
+        <a
+          href="https://wa.me/919023700622?text=Hi%20ThinkXstudio%20team!%20I'm%20interested%20in%20a%20project%20consulting%20session."
+          target="_blank"
+          rel="noreferrer"
           className="w-12 h-12 rounded-full bg-gradient-brand text-white flex items-center justify-center shadow-2xl transition-transform hover:scale-105 active:scale-95"
-          title="Chat with ThinkX AI"
+          title="Chat on WhatsApp"
         >
           <MessageSquare size={20} />
-        </button>
+        </a>
 
         {/* Floating expand toggle */}
         <button
