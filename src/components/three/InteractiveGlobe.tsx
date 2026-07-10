@@ -1,12 +1,23 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 export default function InteractiveGlobe() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -288,6 +299,8 @@ export default function InteractiveGlobe() {
     };
   }, []);
 
+  if (isMobile) return null;
+ 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none -z-10">
       {/* Container where the WebGL renderer inserts the canvas */}
