@@ -240,11 +240,11 @@ export default function Portfolio() {
                     {/* Performance badging */}
                     <div className="flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-mono font-bold text-emerald-500">
                       <Zap size={12} />
-                      <span>{project.perfScore}% Perf</span>
+                      <span>Peak Perf</span>
                     </div>
                     <div className="flex items-center gap-1.5 bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20 text-xs font-mono font-bold text-accent-cyan">
                       <Target size={12} />
-                      <span>{project.seoScore}% SEO</span>
+                      <span>SEO Verified</span>
                     </div>
                   </div>
 
