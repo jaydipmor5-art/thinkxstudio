@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslate } from "../../context/LanguageContext";
-import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight, HeartHandshake, Home, Clock, Car, Stethoscope, Baby, Sparkles, Box, PartyPopper, BellRing, Wallet, Calendar, Grid, User } from "lucide-react";
+import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight, HeartHandshake, Home, Clock, Car, Stethoscope, Baby, Sparkles, Box, PartyPopper, BellRing, Wallet, Calendar, Grid, User, Wifi, Battery, Signal } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Project {
@@ -37,86 +37,99 @@ const SimulatedAppScreen = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-white text-zinc-900 flex flex-col justify-between select-none text-left rounded-b-[18px] overflow-hidden pb-1">
+    <div className="w-full h-full bg-white text-zinc-900 flex flex-col justify-between select-none text-left overflow-hidden relative">
+       {/* Status Bar */}
+       <div className="h-4 w-full flex justify-between items-center px-3 pt-1 relative z-20 text-zinc-900">
+         <span className="text-[5px] font-bold">10:55</span>
+         <div className="flex gap-0.5 items-center">
+           <Signal size={6} strokeWidth={3} />
+           <Wifi size={6} strokeWidth={3} />
+           <Battery size={7} strokeWidth={2} />
+         </div>
+       </div>
+
        {/* Scrollable content area */}
-       <div className="flex-grow p-2.5 flex flex-col gap-2.5">
+       <div className="flex-grow px-2.5 pb-2.5 flex flex-col gap-2.5 mt-1 overflow-hidden">
          {/* Header */}
-         <div className="flex justify-between items-center mt-1">
-           <h4 className="text-[10px] font-black tracking-tight text-[#1C2C7B]">Explore Categories</h4>
-           <span className="text-[#E76F32] text-[6px] font-black tracking-wider uppercase">View All →</span>
+         <div className="flex justify-between items-center">
+           <h4 className="text-[11px] font-black tracking-tight text-[#111827]">Explore Categories</h4>
+           <span className="text-[#E76F32] text-[6.5px] font-black tracking-wider flex items-center">View All <span className="ml-0.5">→</span></span>
          </div>
          
          {/* 3x3 Grid */}
-         <div className="grid grid-cols-3 gap-y-2 gap-x-1">
+         <div className="grid grid-cols-3 gap-y-2.5 gap-x-1.5 mt-0.5">
            {categories.map((cat, i) => (
              <div key={i} className="flex flex-col items-center gap-1">
-               <div className={`w-8 h-8 rounded-[10px] ${cat.bg} flex items-center justify-center border border-zinc-100 shadow-sm`}>
-                 <cat.icon size={13} className={cat.color} />
+               <div className={`w-10 h-10 rounded-[12px] ${cat.bg} flex items-center justify-center border border-zinc-100/80 shadow-sm relative overflow-hidden group/cat`}>
+                 <cat.icon size={16} className={cat.color} />
                </div>
-               <span className="text-[4.5px] font-extrabold text-center leading-tight whitespace-nowrap text-zinc-600">{cat.name}</span>
+               <span className="text-[5px] font-bold text-center leading-tight whitespace-nowrap text-zinc-800">{cat.name}</span>
              </div>
            ))}
          </div>
 
          {/* Quick Actions Header */}
-         <h4 className="text-[10px] font-black tracking-tight text-[#1C2C7B] mt-0.5">Quick Actions</h4>
+         <h4 className="text-[11px] font-black tracking-tight text-[#111827] mt-1.5">Quick Actions</h4>
          
          {/* Quick Actions Cards */}
-         <div className="grid grid-cols-2 gap-2">
+         <div className="grid grid-cols-2 gap-2 mt-0.5">
            {/* Emergency */}
-           <div className="bg-[#1C2C7B] text-white rounded-[10px] p-2 relative overflow-hidden h-14 shadow-md">
-             <div className="flex justify-between items-start mb-2">
-               <span className="text-[7.5px] font-bold leading-tight">Emergency<br/>Care</span>
-               <BellRing size={10} className="text-[#E76F32]" />
+           <div className="bg-[#1e2b6a] text-white rounded-[12px] p-2.5 relative overflow-hidden h-[60px] shadow-sm">
+             <div className="flex justify-between items-start mb-2.5">
+               <span className="text-[9px] font-bold leading-[1.1]">Emergency<br/>Care</span>
+               <BellRing size={12} className="text-[#E76F32]" />
              </div>
-             <span className="text-[4px] text-blue-200 uppercase tracking-widest font-bold">Direct Helpline</span>
-             <div className="absolute bottom-1.5 left-2 w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center">
-               <span className="text-[6px] font-black">→</span>
+             <span className="text-[5px] text-indigo-200 uppercase tracking-[0.2em] font-black mt-auto block">Direct Helpline</span>
+             <div className="absolute bottom-2 left-2.5 w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
+               <span className="text-[7px] font-black leading-none pb-[1px]">→</span>
              </div>
            </div>
            
            {/* Instant */}
-           <div className="bg-[#F4F7FC] text-[#1C2C7B] rounded-[10px] p-2 relative overflow-hidden h-14 border border-blue-100/50 shadow-sm">
-             <div className="flex justify-between items-start mb-2">
-               <span className="text-[7.5px] font-bold leading-tight">Instant<br/>Cleaning</span>
-               <div className="w-4 h-4 bg-white rounded-md flex items-center justify-center shadow-sm">
-                 <Zap size={8} className="text-blue-500" />
+           <div className="bg-[#f0f4fc] text-[#1e2b6a] rounded-[12px] p-2.5 relative overflow-hidden h-[60px] shadow-sm border border-blue-100/60">
+             <div className="flex justify-between items-start mb-2.5">
+               <span className="text-[9px] font-bold leading-[1.1]">Instant<br/>Cleaning</span>
+               <div className="w-[14px] h-[14px] bg-white rounded flex items-center justify-center shadow-sm">
+                 <Zap size={9} className="text-blue-500" />
                </div>
              </div>
-             <span className="text-[4px] text-zinc-500 uppercase tracking-widest font-bold">Book in 60 Sec</span>
-             <div className="absolute bottom-1.5 left-2 w-3.5 h-3.5 rounded-full bg-white border border-blue-100 flex items-center justify-center">
-               <span className="text-[6px] text-blue-600 font-black">→</span>
+             <span className="text-[5px] text-zinc-500 uppercase tracking-[0.2em] font-black mt-auto block">Book in 60 Sec</span>
+             <div className="absolute bottom-2 left-2.5 w-4 h-4 rounded-full bg-white border border-indigo-100 flex items-center justify-center">
+               <span className="text-[7px] text-[#1e2b6a] font-black leading-none pb-[1px]">→</span>
              </div>
            </div>
          </div>
        </div>
 
        {/* Bottom Nav */}
-       <div className="h-10 bg-white border-t border-zinc-100 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] flex items-center justify-around px-1 relative z-10 w-[calc(100%+6px)] -ml-[3px] rounded-b-[18px]">
-         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
-           <Wallet size={11} strokeWidth={2.5} />
-           <span className="text-[4.5px] font-bold">Wallet</span>
+       <div className="h-12 bg-white/95 backdrop-blur-md border-t border-zinc-100 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] flex items-center justify-around px-2 relative z-10 w-full pt-1 pb-2">
+         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
+           <Wallet size={12} strokeWidth={2} />
+           <span className="text-[5px] font-bold">Wallet</span>
          </div>
-         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
-           <Calendar size={11} strokeWidth={2.5} />
-           <span className="text-[4.5px] font-bold">Bookings</span>
+         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
+           <Calendar size={12} strokeWidth={2} />
+           <span className="text-[5px] font-bold">Bookings</span>
          </div>
          
          {/* Active floating FAB style center button */}
-         <div className="flex flex-col items-center justify-center -mt-6">
-           <div className="w-10 h-10 rounded-full bg-[#4133C6] flex items-center justify-center shadow-xl shadow-[#4133C6]/30 border-[4px] border-white">
-             <Home size={14} color="white" strokeWidth={2.5} />
+         <div className="flex flex-col items-center justify-center -mt-7 cursor-pointer">
+           <div className="w-11 h-11 rounded-full bg-[#4a3bc6] flex items-center justify-center shadow-[0_4px_12px_rgba(74,59,198,0.4)] border-[4px] border-white">
+             <Home size={15} color="white" strokeWidth={2.5} />
            </div>
          </div>
          
-         <div className="flex flex-col items-center gap-0.5 text-[#4133C6]">
-           <Grid size={11} strokeWidth={2.5} />
-           <span className="text-[4.5px] font-bold">Categories</span>
+         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
+           <Grid size={12} strokeWidth={2} />
+           <span className="text-[5px] font-bold">Categories</span>
          </div>
-         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
-           <User size={11} strokeWidth={2.5} />
-           <span className="text-[4.5px] font-bold">Account</span>
+         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
+           <User size={12} strokeWidth={2} />
+           <span className="text-[5px] font-bold">Account</span>
          </div>
+         
+         {/* Home Indicator */}
+         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-zinc-300 rounded-full" />
        </div>
     </div>
   );
@@ -248,10 +261,10 @@ export default function Portfolio() {
                     
                     {project.isApp ? (
                       /* Realistic Mobile Phone Viewport (Standalone) */
-                      <div className="w-[130px] h-[240px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[24px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
+                      <div className="w-[155px] h-[310px] bg-white border-[5px] border-zinc-900 rounded-[26px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-[1.03] group-hover:rotate-0 transition-all duration-500">
                         {/* Notch */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-zinc-800 rounded-b-md z-20" />
-                        <div className="w-full h-full pt-2.5 relative overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60px] h-[14px] bg-zinc-900 rounded-b-[10px] z-30" />
+                        <div className="w-full h-full relative overflow-hidden bg-white">
                           <SimulatedAppScreen />
                         </div>
                       </div>
