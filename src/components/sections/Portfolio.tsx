@@ -99,6 +99,22 @@ const SimulatedAppScreen = () => {
              </div>
            </div>
          </div>
+         
+         {/* Why Choose Section (Bottom) */}
+         <div className="mt-2.5">
+           <h4 className="text-[11px] font-black tracking-tight text-[#111827] mb-1">Why Choose Carepartner?</h4>
+           <div className="bg-zinc-50 rounded-[12px] p-2 border border-zinc-100 flex items-center justify-between shadow-sm">
+             <div className="flex gap-2 items-center">
+               <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
+                 <CheckCircle2 size={10} className="text-emerald-500" />
+               </div>
+               <div className="flex flex-col">
+                 <span className="text-[7px] font-bold text-zinc-800">Verified & Trained</span>
+                 <span className="text-[5px] text-zinc-500">100% Background checked staff</span>
+               </div>
+             </div>
+           </div>
+         </div>
        </div>
 
        {/* Bottom Nav */}
