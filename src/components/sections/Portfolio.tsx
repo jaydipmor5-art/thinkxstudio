@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslate } from "../../context/LanguageContext";
-import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight, HeartHandshake, Home, Clock, Car, Stethoscope, Baby, Sparkles, Box, PartyPopper, BellRing, Wallet, Calendar, Grid, User } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Project {
@@ -22,47 +22,102 @@ interface Project {
   isApp?: boolean;
 }
 
-// Custom simulated screen for CarePartner City Mobile App
+// Custom simulated screen for CarePartner City Mobile App (Light UI)
 const SimulatedAppScreen = () => {
+  const categories = [
+    { name: "Personal Care", icon: HeartHandshake, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { name: "Domestic Care", icon: Home, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { name: "Priority Services", icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { name: "Travel Care", icon: Car, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { name: "Health Care", icon: Stethoscope, color: "text-rose-500", bg: "bg-rose-500/10" },
+    { name: "Child Care", icon: Baby, color: "text-orange-500", bg: "bg-orange-500/10" },
+    { name: "Deep Cleaning", icon: Sparkles, color: "text-cyan-500", bg: "bg-cyan-500/10" },
+    { name: "Luggage shifting", icon: Box, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { name: "Festival cleaning", icon: PartyPopper, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10" },
+  ];
+
   return (
-    <div className="w-full h-full bg-[#0a0f1d] text-white p-3 flex flex-col justify-between select-none text-left">
-      <div className="flex items-center justify-between border-b border-zinc-800 pb-1.5 mb-1.5 flex-shrink-0">
-        <div className="flex items-center gap-1">
-          <span className="w-4 h-4 rounded-full bg-gradient-brand flex items-center justify-center text-[6px] font-black text-white">CPC</span>
-          <span className="text-[8px] font-black uppercase tracking-wider">CarePartner City</span>
-        </div>
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-      </div>
-      <div className="flex-grow flex flex-col gap-1.5">
-        <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex items-center gap-1.5 text-[7px] text-zinc-500">
-          <span>🔍</span>
-          <span>Find caregivers near you...</span>
-        </div>
-        <div className="grid grid-cols-2 gap-1.5">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex flex-col gap-0.5 items-center justify-center text-center">
-            <span className="text-xs">🏥</span>
-            <span className="text-[6px] font-black uppercase tracking-wide">Home Nurse</span>
-          </div>
-          <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex flex-col gap-0.5 items-center justify-center text-center">
-            <span className="text-xs">👵</span>
-            <span className="text-[6px] font-black uppercase tracking-wide">Elderly Care</span>
-          </div>
-        </div>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <span className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[10px]">👩‍⚕️</span>
-            <div>
-              <h5 className="text-[7px] font-black">Sarah Connor, RN</h5>
-              <p className="text-[5px] text-zinc-500 font-semibold">5.0 ★ | Nurse</p>
-            </div>
-          </div>
-          <span className="px-1 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[5px] font-bold">Active</span>
-        </div>
-      </div>
-      <div className="h-6 border-t border-zinc-800 flex items-center justify-around text-zinc-400 text-[8px] mt-1.5 flex-shrink-0 bg-[#05070d] -mx-3 -mb-3 px-3">
-        <span className="font-bold text-[7px] text-accent-cyan">● Home</span>
-        <span className="text-[7px]">📅 Bookings</span>
-      </div>
+    <div className="w-full h-full bg-white text-zinc-900 flex flex-col justify-between select-none text-left rounded-b-[18px] overflow-hidden pb-1">
+       {/* Scrollable content area */}
+       <div className="flex-grow p-2.5 flex flex-col gap-2.5">
+         {/* Header */}
+         <div className="flex justify-between items-center mt-1">
+           <h4 className="text-[10px] font-black tracking-tight text-[#1C2C7B]">Explore Categories</h4>
+           <span className="text-[#E76F32] text-[6px] font-black tracking-wider uppercase">View All →</span>
+         </div>
+         
+         {/* 3x3 Grid */}
+         <div className="grid grid-cols-3 gap-y-2 gap-x-1">
+           {categories.map((cat, i) => (
+             <div key={i} className="flex flex-col items-center gap-1">
+               <div className={`w-8 h-8 rounded-[10px] ${cat.bg} flex items-center justify-center border border-zinc-100 shadow-sm`}>
+                 <cat.icon size={13} className={cat.color} />
+               </div>
+               <span className="text-[4.5px] font-extrabold text-center leading-tight whitespace-nowrap text-zinc-600">{cat.name}</span>
+             </div>
+           ))}
+         </div>
+
+         {/* Quick Actions Header */}
+         <h4 className="text-[10px] font-black tracking-tight text-[#1C2C7B] mt-0.5">Quick Actions</h4>
+         
+         {/* Quick Actions Cards */}
+         <div className="grid grid-cols-2 gap-2">
+           {/* Emergency */}
+           <div className="bg-[#1C2C7B] text-white rounded-[10px] p-2 relative overflow-hidden h-14 shadow-md">
+             <div className="flex justify-between items-start mb-2">
+               <span className="text-[7.5px] font-bold leading-tight">Emergency<br/>Care</span>
+               <BellRing size={10} className="text-[#E76F32]" />
+             </div>
+             <span className="text-[4px] text-blue-200 uppercase tracking-widest font-bold">Direct Helpline</span>
+             <div className="absolute bottom-1.5 left-2 w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center">
+               <span className="text-[6px] font-black">→</span>
+             </div>
+           </div>
+           
+           {/* Instant */}
+           <div className="bg-[#F4F7FC] text-[#1C2C7B] rounded-[10px] p-2 relative overflow-hidden h-14 border border-blue-100/50 shadow-sm">
+             <div className="flex justify-between items-start mb-2">
+               <span className="text-[7.5px] font-bold leading-tight">Instant<br/>Cleaning</span>
+               <div className="w-4 h-4 bg-white rounded-md flex items-center justify-center shadow-sm">
+                 <Zap size={8} className="text-blue-500" />
+               </div>
+             </div>
+             <span className="text-[4px] text-zinc-500 uppercase tracking-widest font-bold">Book in 60 Sec</span>
+             <div className="absolute bottom-1.5 left-2 w-3.5 h-3.5 rounded-full bg-white border border-blue-100 flex items-center justify-center">
+               <span className="text-[6px] text-blue-600 font-black">→</span>
+             </div>
+           </div>
+         </div>
+       </div>
+
+       {/* Bottom Nav */}
+       <div className="h-10 bg-white border-t border-zinc-100 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] flex items-center justify-around px-1 relative z-10 w-[calc(100%+6px)] -ml-[3px] rounded-b-[18px]">
+         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
+           <Wallet size={11} strokeWidth={2.5} />
+           <span className="text-[4.5px] font-bold">Wallet</span>
+         </div>
+         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
+           <Calendar size={11} strokeWidth={2.5} />
+           <span className="text-[4.5px] font-bold">Bookings</span>
+         </div>
+         
+         {/* Active floating FAB style center button */}
+         <div className="flex flex-col items-center justify-center -mt-6">
+           <div className="w-10 h-10 rounded-full bg-[#4133C6] flex items-center justify-center shadow-xl shadow-[#4133C6]/30 border-[4px] border-white">
+             <Home size={14} color="white" strokeWidth={2.5} />
+           </div>
+         </div>
+         
+         <div className="flex flex-col items-center gap-0.5 text-[#4133C6]">
+           <Grid size={11} strokeWidth={2.5} />
+           <span className="text-[4.5px] font-bold">Categories</span>
+         </div>
+         <div className="flex flex-col items-center gap-0.5 text-zinc-400">
+           <User size={11} strokeWidth={2.5} />
+           <span className="text-[4.5px] font-bold">Account</span>
+         </div>
+       </div>
     </div>
   );
 };
