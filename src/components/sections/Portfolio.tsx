@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTranslate } from "../../context/LanguageContext";
-import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight, HeartHandshake, Home, Clock, Car, Stethoscope, Baby, Sparkles, Box, PartyPopper, BellRing, Wallet, Calendar, Grid, User, Wifi, Battery, Signal } from "lucide-react";
+import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Project {
@@ -22,131 +22,47 @@ interface Project {
   isApp?: boolean;
 }
 
-// Custom simulated screen for CarePartner City Mobile App (Light UI)
+// Custom simulated screen for CarePartner City Mobile App
 const SimulatedAppScreen = () => {
-  const categories = [
-    { name: "Personal Care", icon: HeartHandshake, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { name: "Domestic Care", icon: Home, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { name: "Priority Services", icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { name: "Travel Care", icon: Car, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { name: "Health Care", icon: Stethoscope, color: "text-rose-500", bg: "bg-rose-500/10" },
-    { name: "Child Care", icon: Baby, color: "text-orange-500", bg: "bg-orange-500/10" },
-    { name: "Deep Cleaning", icon: Sparkles, color: "text-cyan-500", bg: "bg-cyan-500/10" },
-    { name: "Luggage shifting", icon: Box, color: "text-amber-500", bg: "bg-amber-500/10" },
-    { name: "Festival cleaning", icon: PartyPopper, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10" },
-  ];
-
   return (
-    <div className="w-full h-full bg-white text-zinc-900 flex flex-col justify-between select-none text-left overflow-hidden relative">
-       {/* Status Bar */}
-       <div className="h-4 w-full flex justify-between items-center px-3 pt-1 relative z-20 text-zinc-900">
-         <span className="text-[5px] font-bold">10:55</span>
-         <div className="flex gap-0.5 items-center">
-           <Signal size={6} strokeWidth={3} />
-           <Wifi size={6} strokeWidth={3} />
-           <Battery size={7} strokeWidth={2} />
-         </div>
-       </div>
-
-       {/* Scrollable content area */}
-       <div className="flex-grow px-2.5 pb-2.5 flex flex-col gap-2.5 mt-1 overflow-hidden">
-         {/* Header */}
-         <div className="flex justify-between items-center">
-           <h4 className="text-[11px] font-black tracking-tight text-[#111827]">Explore Categories</h4>
-           <span className="text-[#E76F32] text-[6.5px] font-black tracking-wider flex items-center">View All <span className="ml-0.5">→</span></span>
-         </div>
-         
-         {/* 3x3 Grid */}
-         <div className="grid grid-cols-3 gap-y-2.5 gap-x-1.5 mt-0.5">
-           {categories.map((cat, i) => (
-             <div key={i} className="flex flex-col items-center gap-1">
-               <div className={`w-10 h-10 rounded-[12px] ${cat.bg} flex items-center justify-center border border-zinc-100/80 shadow-sm relative overflow-hidden group/cat`}>
-                 <cat.icon size={16} className={cat.color} />
-               </div>
-               <span className="text-[5px] font-bold text-center leading-tight whitespace-nowrap text-zinc-800">{cat.name}</span>
-             </div>
-           ))}
-         </div>
-
-         {/* Quick Actions Header */}
-         <h4 className="text-[11px] font-black tracking-tight text-[#111827] mt-1.5">Quick Actions</h4>
-         
-         {/* Quick Actions Cards */}
-         <div className="grid grid-cols-2 gap-2 mt-0.5">
-           {/* Emergency */}
-           <div className="bg-[#1e2b6a] text-white rounded-[12px] p-2.5 relative overflow-hidden h-[60px] shadow-sm">
-             <div className="flex justify-between items-start mb-2.5">
-               <span className="text-[9px] font-bold leading-[1.1]">Emergency<br/>Care</span>
-               <BellRing size={12} className="text-[#E76F32]" />
-             </div>
-             <span className="text-[5px] text-indigo-200 uppercase tracking-[0.2em] font-black mt-auto block">Direct Helpline</span>
-             <div className="absolute bottom-2 left-2.5 w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
-               <span className="text-[7px] font-black leading-none pb-[1px]">→</span>
-             </div>
-           </div>
-           
-           {/* Instant */}
-           <div className="bg-[#f0f4fc] text-[#1e2b6a] rounded-[12px] p-2.5 relative overflow-hidden h-[60px] shadow-sm border border-blue-100/60">
-             <div className="flex justify-between items-start mb-2.5">
-               <span className="text-[9px] font-bold leading-[1.1]">Instant<br/>Cleaning</span>
-               <div className="w-[14px] h-[14px] bg-white rounded flex items-center justify-center shadow-sm">
-                 <Zap size={9} className="text-blue-500" />
-               </div>
-             </div>
-             <span className="text-[5px] text-zinc-500 uppercase tracking-[0.2em] font-black mt-auto block">Book in 60 Sec</span>
-             <div className="absolute bottom-2 left-2.5 w-4 h-4 rounded-full bg-white border border-indigo-100 flex items-center justify-center">
-               <span className="text-[7px] text-[#1e2b6a] font-black leading-none pb-[1px]">→</span>
-             </div>
-           </div>
-         </div>
-         
-         {/* Why Choose Section (Bottom) */}
-         <div className="mt-2.5">
-           <h4 className="text-[11px] font-black tracking-tight text-[#111827] mb-1">Why Choose Carepartner?</h4>
-           <div className="bg-zinc-50 rounded-[12px] p-2 border border-zinc-100 flex items-center justify-between shadow-sm">
-             <div className="flex gap-2 items-center">
-               <div className="w-6 h-6 bg-emerald-100 rounded-full flex items-center justify-center">
-                 <CheckCircle2 size={10} className="text-emerald-500" />
-               </div>
-               <div className="flex flex-col">
-                 <span className="text-[7px] font-bold text-zinc-800">Verified & Trained</span>
-                 <span className="text-[5px] text-zinc-500">100% Background checked staff</span>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-
-       {/* Bottom Nav */}
-       <div className="h-12 bg-white/95 backdrop-blur-md border-t border-zinc-100 shadow-[0_-10px_20px_rgba(0,0,0,0.03)] flex items-center justify-around px-2 relative z-10 w-full pt-1 pb-2">
-         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
-           <Wallet size={12} strokeWidth={2} />
-           <span className="text-[5px] font-bold">Wallet</span>
-         </div>
-         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
-           <Calendar size={12} strokeWidth={2} />
-           <span className="text-[5px] font-bold">Bookings</span>
-         </div>
-         
-         {/* Active floating FAB style center button */}
-         <div className="flex flex-col items-center justify-center -mt-7 cursor-pointer">
-           <div className="w-11 h-11 rounded-full bg-[#4a3bc6] flex items-center justify-center shadow-[0_4px_12px_rgba(74,59,198,0.4)] border-[4px] border-white">
-             <Home size={15} color="white" strokeWidth={2.5} />
-           </div>
-         </div>
-         
-         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
-           <Grid size={12} strokeWidth={2} />
-           <span className="text-[5px] font-bold">Categories</span>
-         </div>
-         <div className="flex flex-col items-center gap-[2px] text-zinc-400 cursor-pointer">
-           <User size={12} strokeWidth={2} />
-           <span className="text-[5px] font-bold">Account</span>
-         </div>
-         
-         {/* Home Indicator */}
-         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-10 h-0.5 bg-zinc-300 rounded-full" />
-       </div>
+    <div className="w-full h-full bg-[#0a0f1d] text-white p-3 flex flex-col justify-between select-none text-left">
+      <div className="flex items-center justify-between border-b border-zinc-800 pb-1.5 mb-1.5 flex-shrink-0">
+        <div className="flex items-center gap-1">
+          <span className="w-4 h-4 rounded-full bg-gradient-brand flex items-center justify-center text-[6px] font-black text-white">CPC</span>
+          <span className="text-[8px] font-black uppercase tracking-wider">CarePartner City</span>
+        </div>
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+      </div>
+      <div className="flex-grow flex flex-col gap-1.5">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex items-center gap-1.5 text-[7px] text-zinc-500">
+          <span>🔍</span>
+          <span>Find caregivers near you...</span>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex flex-col gap-0.5 items-center justify-center text-center">
+            <span className="text-xs">🏥</span>
+            <span className="text-[6px] font-black uppercase tracking-wide">Home Nurse</span>
+          </div>
+          <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex flex-col gap-0.5 items-center justify-center text-center">
+            <span className="text-xs">👵</span>
+            <span className="text-[6px] font-black uppercase tracking-wide">Elderly Care</span>
+          </div>
+        </div>
+        <div className="bg-zinc-900 border border-zinc-800 rounded-md p-1.5 flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <span className="w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-[10px]">👩‍⚕️</span>
+            <div>
+              <h5 className="text-[7px] font-black">Sarah Connor, RN</h5>
+              <p className="text-[5px] text-zinc-500 font-semibold">5.0 ★ | Nurse</p>
+            </div>
+          </div>
+          <span className="px-1 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[5px] font-bold">Active</span>
+        </div>
+      </div>
+      <div className="h-6 border-t border-zinc-800 flex items-center justify-around text-zinc-400 text-[8px] mt-1.5 flex-shrink-0 bg-[#05070d] -mx-3 -mb-3 px-3">
+        <span className="font-bold text-[7px] text-accent-cyan">● Home</span>
+        <span className="text-[7px]">📅 Bookings</span>
+      </div>
     </div>
   );
 };
@@ -277,10 +193,10 @@ export default function Portfolio() {
                     
                     {project.isApp ? (
                       /* Realistic Mobile Phone Viewport (Standalone) */
-                      <div className="w-[155px] h-[310px] bg-white border-[5px] border-zinc-900 rounded-[26px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-[1.03] group-hover:rotate-0 transition-all duration-500">
+                      <div className="w-[130px] h-[240px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[24px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
                         {/* Notch */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60px] h-[14px] bg-zinc-900 rounded-b-[10px] z-30" />
-                        <div className="w-full h-full relative overflow-hidden bg-white">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-zinc-800 rounded-b-md z-20" />
+                        <div className="w-full h-full pt-2.5 relative overflow-hidden">
                           <SimulatedAppScreen />
                         </div>
                       </div>
