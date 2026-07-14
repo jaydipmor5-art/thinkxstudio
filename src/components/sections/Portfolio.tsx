@@ -3,6 +3,7 @@
 import React from "react";
 import { useTranslate } from "../../context/LanguageContext";
 import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Project {
   title: string;
@@ -68,6 +69,8 @@ const SimulatedAppScreen = () => {
 
 export default function Portfolio() {
   const { t, language } = useTranslate();
+  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
+  const projectsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.15 });
 
   const titleText = language === "gu" ? "અમારું કામ" : language === "hi" ? "हमारा काम" : "Our Work";
   const descText = language === "gu"
@@ -159,7 +162,7 @@ export default function Portfolio() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-24">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-24">
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
             {titleText}
           </h2>
@@ -170,7 +173,7 @@ export default function Portfolio() {
         </div>
 
         {/* Alternating Widescreen Showcase Blocks */}
-        <div className="flex flex-col gap-24">
+        <div ref={projectsRef} className="flex flex-col gap-24">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
             return (

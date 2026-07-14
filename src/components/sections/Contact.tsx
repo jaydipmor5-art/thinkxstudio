@@ -3,10 +3,15 @@
 import React, { useState } from "react";
 import { useTranslate } from "../../context/LanguageContext";
 import { Mail, Phone, MapPin, CheckCircle, Send } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Contact() {
   const { t } = useTranslate();
   const [step, setStep] = useState<"details" | "success">("details");
+
+  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
+  const infoRef = useScrollReveal<HTMLDivElement>({ type: "fadeLeft", delay: 0.15 });
+  const formRef = useScrollReveal<HTMLDivElement>({ type: "fadeRight", delay: 0.2 });
   
   // States
   const [formData, setFormData] = useState({ 
@@ -69,7 +74,7 @@ export default function Contact() {
           
           {/* Info Card Column */}
           <div className="col-span-1 lg:col-span-5 flex flex-col justify-between min-h-[450px]">
-            <div>
+            <div ref={titleRef}>
               <span className="text-xs font-bold text-accent-cyan tracking-widest uppercase mb-2 block">
                 Let's Build The Future
               </span>
@@ -83,7 +88,7 @@ export default function Contact() {
             </div>
 
             {/* Quick Contact links */}
-            <div className="flex flex-col gap-6">
+            <div ref={infoRef} className="flex flex-col gap-6">
               <div className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/5 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800">
                 <div className="w-10 h-10 rounded-lg bg-accent-cyan/10 flex items-center justify-center text-accent-cyan">
                   <Mail size={18} />
@@ -123,7 +128,7 @@ export default function Contact() {
           </div>
 
           {/* Interactive Booking Form Column */}
-          <div className="col-span-1 lg:col-span-7">
+          <div ref={formRef} className="col-span-1 lg:col-span-7">
             <div className="glassmorphism rounded-2xl p-8 border border-zinc-200 dark:border-zinc-800 min-h-[480px] flex flex-col justify-between">
               
               {/* Form Navigation Header */}

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   Stethoscope,
   GraduationCap,
@@ -17,6 +18,9 @@ import {
 } from "lucide-react";
 
 export default function Industries() {
+  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
+  const marqueeRow1Ref = useScrollReveal<HTMLDivElement>({ type: "fadeLeft", delay: 0.2 });
+  const marqueeRow2Ref = useScrollReveal<HTMLDivElement>({ type: "fadeRight", delay: 0.35 });
   const industries = [
     { name: "Hospital", solution: "Patient Management & E-Health Records", icon: <Stethoscope size={20} /> },
     { name: "School", solution: "Student Information Systems & Virtual Classrooms", icon: <GraduationCap size={20} /> },
@@ -36,7 +40,7 @@ export default function Industries() {
     <section id="industries" className="py-24 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-[#111322]">
             Industries We Innovate For
           </h2>
@@ -48,7 +52,7 @@ export default function Industries() {
       </div>
 
       {/* Scrolling Industry Rows */}
-      <div className="w-full relative overflow-hidden py-4">
+      <div ref={marqueeRow1Ref} className="w-full relative overflow-hidden py-4">
         {/* Marquee Row 1 */}
         <div className="animate-marquee gap-6 px-4 hover:[animation-play-state:paused] cursor-pointer flex">
           {[...industries, ...industries].map((ind, idx) => (
@@ -69,7 +73,7 @@ export default function Industries() {
       </div>
 
       {/* Scrolling Industry Rows 2 */}
-      <div className="w-full relative overflow-hidden py-4 mt-2">
+      <div ref={marqueeRow2Ref} className="w-full relative overflow-hidden py-4 mt-2">
         {/* Marquee Row 2 (reversing direction) */}
         <div className="animate-marquee gap-6 px-4 hover:[animation-play-state:paused] cursor-pointer flex" style={{ animationDirection: "reverse", animationDuration: "35s" }}>
           {[...industries.slice().reverse(), ...industries.slice().reverse()].map((ind, idx) => (

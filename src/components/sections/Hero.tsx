@@ -5,9 +5,13 @@ import Link from "next/link";
 import { useTranslate } from "../../context/LanguageContext";
 import InteractiveGlobe from "../three/InteractiveGlobe";
 import { ArrowRight, Sparkles, Code, Cpu, Award, Rocket, Phone } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Hero() {
   const { t } = useTranslate();
+
+  const textRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", delay: 0.3 });
+  const logosRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", delay: 0.6 });
 
   const brandLogos: Array<{ name: string; image?: string; icon?: string }> = [
     { name: "CarePartner", image: "/carepartner.png" },
@@ -28,7 +32,7 @@ export default function Hero() {
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow flex flex-col lg:flex-row items-center justify-between gap-12 mt-8 lg:mt-0">
         {/* Text column */}
-        <div className="flex-1 text-center lg:text-left z-10 max-w-2xl lg:max-w-none">
+        <div ref={textRef} className="flex-1 text-center lg:text-left z-10 max-w-2xl lg:max-w-none">
           {/* Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 text-[11px] font-semibold text-accent-cyan tracking-wider uppercase mb-6 animate-pulse">
             <Sparkles size={12} />
@@ -89,7 +93,7 @@ export default function Hero() {
       </div>
 
       {/* Infinite scrolling Client Logo Wall */}
-      <div className="w-full border-y border-zinc-200/60 bg-white/20 py-6 mt-12 relative overflow-hidden pointer-events-auto">
+      <div ref={logosRef} className="w-full border-y border-zinc-200/60 bg-white/20 py-6 mt-12 relative overflow-hidden pointer-events-auto">
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
         

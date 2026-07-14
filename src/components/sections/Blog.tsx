@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Search, Sparkles, ArrowRight, Eye, Calendar, User } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface BlogPost {
   title: string;
@@ -17,6 +18,10 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [aiSuggestions, setAiSuggestions] = useState<{ title: string; link: string; matchType: string }[]>([]);
+  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
+  const searchRef = useScrollReveal<HTMLDivElement>({ type: "fadeDown", delay: 0.1 });
+  const filtersRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", delay: 0.15 });
+  const cardsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.25 });
 
   const posts: BlogPost[] = [
     {
@@ -133,7 +138,7 @@ export default function Blog() {
         
         {/* Header Grid */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-16">
-          <div className="text-center lg:text-left">
+          <div ref={titleRef} className="text-center lg:text-left">
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
               Latest Digital Insights
             </h2>
@@ -141,7 +146,7 @@ export default function Blog() {
           </div>
 
           {/* AI Search Bar */}
-          <div className="w-full max-w-md relative">
+          <div ref={searchRef} className="w-full max-w-md relative">
             <div className="relative">
               <input
                 type="text"
@@ -188,7 +193,7 @@ export default function Blog() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2.5 justify-center mb-12">
+        <div ref={filtersRef} className="flex flex-wrap gap-2.5 justify-center mb-12">
           {["all", "AI", "Startup", "Marketing", "Development", "SEO"].map((cat) => (
             <button
               key={cat}
@@ -205,7 +210,7 @@ export default function Blog() {
         </div>
 
         {/* Blog Post Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts.map((post, idx) => {
             // Define custom visual banner headers based on Category
             let visualHeader: React.ReactNode;

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Star, Play, X, ShieldCheck, Heart, Quote } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface TestimonialCard {
   name: string;
@@ -17,6 +18,9 @@ interface TestimonialCard {
 
 export default function Testimonials() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
+  const videoRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.15 });
+  const reviewsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.3 });
 
   // Styled SVG Logos matching each corporate entity
   const reviews: TestimonialCard[] = [
@@ -122,7 +126,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
+        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-xs font-mono font-bold text-[#FAB818] tracking-widest uppercase mb-2 block">
             05 / Testimonials
           </span>
@@ -136,7 +140,7 @@ export default function Testimonials() {
         </div>
 
         {/* Video Testimonials Showcase (Row of 2 Widescreen Cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div ref={videoRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {reviews
             .filter((r) => r.source === "video")
             .map((card, idx) => (
@@ -199,7 +203,7 @@ export default function Testimonials() {
         </div>
 
         {/* Google & LinkedIn Reviews Grid (Row of 4 Cards) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={reviewsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reviews
             .filter((r) => r.source !== "video")
             .map((card, idx) => {
