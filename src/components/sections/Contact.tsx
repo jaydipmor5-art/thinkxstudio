@@ -61,7 +61,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-transparent">
+    <section id="contact" className="py-24 relative overflow-hidden bg-transparent scroll-reveal">
       <div className="glow-orb w-[600px] h-[600px] bg-accent-magenta/5 bottom-[-15%] right-[-10%]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

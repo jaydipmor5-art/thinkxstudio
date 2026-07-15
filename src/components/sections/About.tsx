@@ -103,7 +103,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-white/10">
+    <section id="about" className="py-24 relative overflow-hidden bg-white/10 scroll-reveal">
       {/* Background Orbs */}
       <div className="glow-orb w-[400px] h-[400px] bg-accent-purple/5 bottom-[-10%] left-[5%]" />
 

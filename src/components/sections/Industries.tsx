@@ -33,7 +33,7 @@ export default function Industries() {
   ];
 
   return (
-    <section id="industries" className="py-24 relative overflow-hidden bg-transparent">
+    <section id="industries" className="py-24 relative overflow-hidden bg-transparent scroll-reveal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16">

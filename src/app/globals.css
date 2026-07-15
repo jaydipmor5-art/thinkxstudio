@@ -35,6 +35,10 @@ html.dark {
   --color-zinc-805: #202024;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -212,4 +216,65 @@ html.dark .glassmorphism {
 
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
+}
+
+/* ── Scroll Reveal Animations ─────────────────────────────────── */
+/* Base hidden state — set on elements before they come into view */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Visible state — added by IntersectionObserver */
+.scroll-reveal.is-visible,
+.scroll-reveal-left.is-visible,
+.scroll-reveal-right.is-visible,
+.scroll-reveal-scale.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays for child elements */
+.stagger-1 { transition-delay: 0.05s; }
+.stagger-2 { transition-delay: 0.12s; }
+.stagger-3 { transition-delay: 0.19s; }
+.stagger-4 { transition-delay: 0.26s; }
+.stagger-5 { transition-delay: 0.33s; }
+.stagger-6 { transition-delay: 0.40s; }
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal-left,
+  .scroll-reveal-right, .scroll-reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

@@ -153,7 +153,7 @@ export default function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="py-24 relative overflow-hidden bg-transparent">
+    <section id="portfolio" className="py-24 relative overflow-hidden bg-transparent scroll-reveal">
       {/* Dynamic Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293705_1px,transparent_1px),linear-gradient(to_bottom,#1f293705_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
 

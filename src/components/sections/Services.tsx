@@ -65,7 +65,7 @@ export default function Services() {
   );
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
+    <section id="services" className="py-24 relative overflow-hidden scroll-reveal">
       {/* Background Orbs */}
       <div className="glow-orb w-[500px] h-[500px] bg-accent-cyan/5 top-[10%] right-[5%]" />
 
