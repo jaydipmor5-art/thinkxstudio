@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useTranslate } from "../../context/LanguageContext";
 import { Globe, Smartphone, Cpu, Shield, Brush, Video } from "lucide-react";
 
@@ -15,9 +14,6 @@ interface ServiceCardProps {
 export default function Services() {
   const { t } = useTranslate();
   const [activeCategory, setActiveCategory] = useState<"all" | "tech" | "business" | "creatives">("all");
-  const sectionTitleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
-  const filterTabsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", delay: 0.1 });
-  const cardsGridRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.2 });
 
   const servicesData: (ServiceCardProps & { category: "tech" | "business" | "creatives" })[] = [
     {
@@ -76,15 +72,13 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div ref={sectionTitleRef}>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
-              {t("services.title")}
-            </h2>
-            <div className="h-1.5 w-24 bg-gradient-brand mx-auto rounded-full mb-8" />
-          </div>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
+            {t("services.title")}
+          </h2>
+          <div className="h-1.5 w-24 bg-gradient-brand mx-auto rounded-full mb-8" />
 
           {/* Filtering Tabs */}
-          <div ref={filterTabsRef} className="inline-flex bg-zinc-900/10 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 p-1 rounded-full">
+          <div className="inline-flex bg-zinc-900/10 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 p-1 rounded-full">
             {(["all", "tech", "business", "creatives"] as const).map((cat) => (
               <button
                 key={cat}
@@ -102,7 +96,7 @@ export default function Services() {
         </div>
 
         {/* Services Grid */}
-        <div ref={cardsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service, idx) => (
             <ServiceCard key={idx} {...service} />
           ))}

@@ -5,14 +5,10 @@ import Link from "next/link";
 import * as THREE from "three";
 import { useTranslate } from "../../context/LanguageContext";
 import { ArrowUpRight, Send } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Footer() {
   const { t } = useTranslate();
   const globeContainerRef = useRef<HTMLDivElement | null>(null);
-
-  const headingRef = useScrollReveal<HTMLDivElement>({ type: "scale", delay: 0.1 });
-  const columnsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.2 });
 
   useEffect(() => {
     const container = globeContainerRef.current;
@@ -167,14 +163,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Giant Typographic Brand Banner with Shimmering Liquid Gold Animation */}
-        <div ref={headingRef} className="text-center w-full mb-16 select-none pointer-events-none">
+        <div className="text-center w-full mb-16 select-none pointer-events-none">
           <h2 className="text-4xl sm:text-6xl md:text-7.5xl font-black tracking-tighter uppercase leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-[#FAB818] via-zinc-350 to-white bg-[size:200%_auto] animate-[shimmer_6s_linear_infinite] opacity-90">
             Let's Shape The Future.
           </h2>
         </div>
 
         {/* Top Grid */}
-        <div ref={columnsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 items-start mb-16 border-t border-zinc-800/40 pt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 items-start mb-16 border-t border-zinc-800/40 pt-16">
           
           {/* Brand Info */}
           <div className="lg:col-span-4 flex flex-col gap-4">

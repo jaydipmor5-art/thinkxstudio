@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useTranslate } from "../../context/LanguageContext";
 import { CheckCircle2, BookOpen, Compass, Target, ArrowRight } from "lucide-react";
 
 export default function About() {
-  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
-  const tabButtonsRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp", stagger: true, delay: 0.15 });
-  const tabContentRef = useScrollReveal<HTMLDivElement>({ type: "fadeLeft", delay: 0.2 });
-  const whyChooseRef = useScrollReveal<HTMLDivElement>({ type: "fadeRight", delay: 0.3 });
   const { t, language } = useTranslate();
   const [activeTab, setActiveTab] = useState<"story" | "mission" | "vision">("story");
   const [expandedPointIdx, setExpandedPointIdx] = useState<number>(0);
@@ -114,7 +109,7 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
             {t("about.title")}
           </h2>
@@ -126,7 +121,7 @@ export default function About() {
           {/* Tabs Column */}
           <div className="col-span-1 lg:col-span-6 flex flex-col gap-6">
             {/* Tab controls */}
-            <div ref={tabButtonsRef} className="flex bg-zinc-900/5 dark:bg-zinc-900/40 border border-zinc-200/55 dark:border-zinc-800/40 p-1.5 rounded-xl backdrop-blur-md">
+            <div className="flex bg-zinc-900/5 dark:bg-zinc-900/40 border border-zinc-200/55 dark:border-zinc-800/40 p-1.5 rounded-xl backdrop-blur-md">
               {tabsConfig.map((tab) => (
                 <button
                   key={tab.id}
@@ -144,7 +139,7 @@ export default function About() {
             </div>
 
             {/* Tab Content Display */}
-            <div ref={tabContentRef} className="glassmorphism glassmorphism-glow rounded-2xl p-8 min-h-[220px] flex flex-col justify-between transition-all duration-300 hover:shadow-lg dark:hover:shadow-black/20">
+            <div className="glassmorphism glassmorphism-glow rounded-2xl p-8 min-h-[220px] flex flex-col justify-between transition-all duration-300 hover:shadow-lg dark:hover:shadow-black/20">
               <div className="animate-in fade-in slide-in-from-left-4 duration-300" key={activeTab}>
                 <h3 className="text-xl font-black mb-4 text-[#111322] dark:text-zinc-100 flex items-center gap-2">
                   <span className="w-1.5 h-6 bg-[#FAB818] rounded-full shadow-sm shadow-[#FAB818]/50" />
@@ -167,7 +162,7 @@ export default function About() {
           </div>
 
           {/* Why Choose Us Column */}
-          <div ref={whyChooseRef} className="col-span-1 lg:col-span-6 glassmorphism rounded-2xl p-8 lg:p-10 border border-zinc-200 dark:border-zinc-800">
+          <div className="col-span-1 lg:col-span-6 glassmorphism rounded-2xl p-8 lg:p-10 border border-zinc-200 dark:border-zinc-800">
             <h3 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-white mb-6">
               {t("about.whyChooseUs")}
             </h3>

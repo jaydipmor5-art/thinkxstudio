@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslate } from "../../context/LanguageContext";
 import { Mail, Sparkles, ShieldCheck, Terminal, Cpu } from "lucide-react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface TeamMember {
   id: "jaydip" | "darshil";
@@ -31,9 +30,6 @@ export default function Team() {
   const [mounted, setMounted] = useState(false);
   const [activeId, setActiveId] = useState<"jaydip" | "darshil">("jaydip");
   const [logIndex, setLogIndex] = useState(0);
-  const titleRef = useScrollReveal<HTMLDivElement>({ type: "fadeUp" });
-  const sidebarRef = useScrollReveal<HTMLDivElement>({ type: "fadeLeft", delay: 0.2 });
-  const hudRef = useScrollReveal<HTMLDivElement>({ type: "fadeRight", delay: 0.3 });
 
   const systemLogs = [
     "[SECURE NETWORK] jaydip.mor initialized global client gateway...",
@@ -181,7 +177,7 @@ export default function Team() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div ref={titleRef} className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20 select-none mb-4">
             <Sparkles size={10} className="animate-spin-slow" />
             <span>Meet Our Experts</span>
@@ -200,7 +196,7 @@ export default function Team() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-5xl mx-auto relative z-20">
           
           {/* Column 1: Selector Panels List (5 Columns) */}
-          <div ref={sidebarRef} className="col-span-1 lg:col-span-5 flex flex-col gap-4 justify-center">
+          <div className="col-span-1 lg:col-span-5 flex flex-col gap-4 justify-center">
             {teamMembers.map((member) => {
               const isActive = activeId === member.id;
               return (
@@ -251,7 +247,7 @@ export default function Team() {
           </div>
 
           {/* Column 2: Holographic HUD bio spec panel (7 Columns) */}
-          <div ref={hudRef} className="col-span-1 lg:col-span-7 w-full">
+          <div className="col-span-1 lg:col-span-7 w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeId}
