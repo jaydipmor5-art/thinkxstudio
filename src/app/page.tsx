@@ -3,6 +3,7 @@
 import React from "react";
 import Navbar from "../components/common/Navbar";
 import Hero from "../components/sections/Hero";
+import StatsCounter from "../components/sections/StatsCounter";
 import About from "../components/sections/About";
 import Services from "../components/sections/Services";
 import Industries from "../components/sections/Industries";
@@ -23,6 +24,7 @@ export default function Home() {
       {/* Main Landing Sections */}
       <main className="flex-grow">
         <Hero />
+        <StatsCounter />
         <About />
         <Services />
         <Industries />
