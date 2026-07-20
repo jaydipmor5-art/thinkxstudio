@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslate } from "../../context/LanguageContext";
 import { Globe, Smartphone, Cpu, Shield, Brush, Video } from "lucide-react";
 
@@ -9,6 +9,7 @@ interface ServiceCardProps {
   title: string;
   items: string[];
   icon: React.ReactNode;
+  index?: number;
 }
 
 export default function Services() {
@@ -98,7 +99,7 @@ export default function Services() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service, idx) => (
-            <ServiceCard key={idx} {...service} />
+            <ServiceCard key={idx} {...service} index={idx} />
           ))}
         </div>
       </div>
@@ -106,11 +107,36 @@ export default function Services() {
   );
 }
 
-function ServiceCard({ id, title, items, icon }: ServiceCardProps) {
+function ServiceCard({ id, title, items, icon, index = 0 }: ServiceCardProps) {
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <a
+      ref={cardRef}
       href="#contact"
       className="relative glassmorphism rounded-2xl p-6 overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-accent-cyan/40 dark:hover:border-accent-cyan/40 hover:scale-[1.02] hover:shadow-[0_15px_45px_rgba(6,182,212,0.04)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.06)] min-h-[300px] flex flex-col justify-between group transition-all duration-500 cursor-pointer no-underline"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(28px)",
+        transition: `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${index * 0.1}s`,
+      }}
     >
       {/* Main Content View */}
       <div>
@@ -122,8 +148,8 @@ function ServiceCard({ id, title, items, icon }: ServiceCardProps) {
         </h3>
         
         <ul className="flex flex-col gap-2">
-          {items.map((item, index) => (
-            <li key={index} className="text-xs text-zinc-650 dark:text-zinc-400 flex items-center gap-2">
+          {items.map((item, i) => (
+            <li key={i} className="text-xs text-zinc-650 dark:text-zinc-400 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-purple" />
               <span>{item}</span>
             </li>
