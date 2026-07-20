@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Star, ShieldCheck, Quote } from "lucide-react";
+import { Star, ShieldCheck } from "lucide-react";
+import TextReveal from "../common/TextReveal";
 
 interface TestimonialCard {
   name: string;
@@ -123,9 +124,12 @@ export default function Testimonials() {
           <span className="text-xs font-mono font-bold text-[#FAB818] tracking-widest uppercase mb-2 block">
             05 / Testimonials
           </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
-            Trusted by Businesses
-          </h2>
+          <TextReveal
+            text="Trusted by Businesses"
+            as="h2"
+            className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4"
+            wordDelay={80}
+          />
           <div className="h-1.5 w-24 bg-gradient-brand mx-auto rounded-full mb-6" />
           <p className="text-zinc-500 text-sm max-w-xl mx-auto leading-relaxed">
             See what founders and enterprise operations directors say about their ThinkXstudio experience.

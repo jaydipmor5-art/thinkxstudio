@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Search, Sparkles, ArrowRight, Eye, Calendar, User } from "lucide-react";
+import TextReveal from "../common/TextReveal";
 
 interface BlogPost {
   title: string;
@@ -134,9 +135,12 @@ export default function Blog() {
         {/* Header Grid */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-16">
           <div className="text-center lg:text-left">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
-              Latest Digital Insights
-            </h2>
+            <TextReveal
+              text="Latest Digital Insights"
+              as="h2"
+              className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4"
+              wordDelay={80}
+            />
             <div className="h-1.5 w-24 bg-gradient-brand mx-auto lg:mx-0 rounded-full" />
           </div>
 

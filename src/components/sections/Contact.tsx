@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslate } from "../../context/LanguageContext";
+import TextReveal from "../common/TextReveal";
 import { Mail, Phone, MapPin, CheckCircle, Send } from "lucide-react";
 
 export default function Contact() {
@@ -73,9 +74,12 @@ export default function Contact() {
               <span className="text-xs font-bold text-accent-cyan tracking-widest uppercase mb-2 block">
                 Let's Build The Future
               </span>
-              <h2 className="text-3xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight mb-4">
-                Partner With ThinkXstudio
-              </h2>
+              <TextReveal
+                text="Partner With ThinkXstudio"
+                as="h2"
+                className="text-3xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight mb-4"
+                wordDelay={70}
+              />
               <div className="h-1.5 w-24 bg-gradient-brand rounded-full mb-8" />
               <p className="text-zinc-650 dark:text-zinc-500 text-sm leading-relaxed mb-8">
                 Initialize custom database channels, AI assistant modules, and custom client dashboards with our team of elite developers.

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import TextReveal from "../common/TextReveal";
 import {
   Stethoscope,
   GraduationCap,
@@ -37,9 +38,12 @@ export default function Industries() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-[#111322]">
-            Industries We Innovate For
-          </h2>
+          <TextReveal
+            text="Industries We Innovate For"
+            as="h2"
+            className="text-3xl md:text-5xl font-black tracking-tight mb-4 text-[#111322]"
+            wordDelay={75}
+          />
           <div className="h-1.5 w-24 bg-gradient-brand mx-auto rounded-full mb-6" />
           <p className="text-zinc-500 text-sm max-w-xl mx-auto font-medium">
             We deliver tailor-made software solutions representing the specific workflows of major industrial ecosystems.
