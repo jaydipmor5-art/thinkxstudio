@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslate } from "../../context/LanguageContext";
-import { CheckCircle2, BookOpen, Compass, Target, ArrowRight } from "lucide-react";
+import { CheckCircle2, BookOpen, Compass, Target, ArrowRight, MapPin, Layers, Languages, ShieldCheck } from "lucide-react";
 
 export default function About() {
   const { t, language } = useTranslate();
@@ -220,6 +220,49 @@ export default function About() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+
+        {/* Agency Trust & Info Strip */}
+        <div className="mt-16 pt-8 border-t border-zinc-200/50 dark:border-zinc-800/50 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-900/30 border border-zinc-200/40 dark:border-zinc-800/40">
+            <div className="w-10 h-10 rounded-lg bg-[#FAB818]/10 text-[#FAB818] border border-[#FAB818]/20 flex items-center justify-center flex-shrink-0">
+              <MapPin size={18} />
+            </div>
+            <div>
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">Location</div>
+              <div className="text-xs font-black text-zinc-800 dark:text-zinc-200">Surat, Gujarat, IN</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-900/30 border border-zinc-200/40 dark:border-zinc-800/40">
+            <div className="w-10 h-10 rounded-lg bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20 flex items-center justify-center flex-shrink-0">
+              <Layers size={18} />
+            </div>
+            <div>
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">Services</div>
+              <div className="text-xs font-black text-zinc-800 dark:text-zinc-200">6 Core Verticals</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-900/30 border border-zinc-200/40 dark:border-zinc-800/40">
+            <div className="w-10 h-10 rounded-lg bg-accent-purple/10 text-accent-purple border border-accent-purple/20 flex items-center justify-center flex-shrink-0">
+              <Languages size={18} />
+            </div>
+            <div>
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">Languages</div>
+              <div className="text-xs font-black text-zinc-800 dark:text-zinc-200">EN • GUJ • HI</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 p-4 rounded-xl bg-zinc-100/50 dark:bg-zinc-900/30 border border-zinc-200/40 dark:border-zinc-800/40">
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+              <ShieldCheck size={18} />
+            </div>
+            <div>
+              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-bold">Quality</div>
+              <div className="text-xs font-black text-zinc-800 dark:text-zinc-200">ThinkX OS Verified</div>
             </div>
           </div>
         </div>
