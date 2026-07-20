@@ -218,6 +218,11 @@ html.dark .glassmorphism {
   animation: spin-slow 8s linear infinite;
 }
 
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
 /* ── Scroll Reveal Animations ─────────────────────────────────── */
 /* Base hidden state — set on elements before they come into view */
 .scroll-reveal {

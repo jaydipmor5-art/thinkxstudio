@@ -1,13 +1,50 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslate } from "../../context/LanguageContext";
 import InteractiveGlobe from "../three/InteractiveGlobe";
 import { ArrowRight, Sparkles, Code, Cpu, Award, Rocket, Phone } from "lucide-react";
 
+// Typing effect hook — cycles through phrases
+function useTypingEffect(phrases: string[], typingSpeed = 60, pauseMs = 1800, deleteSpeed = 30) {
+  const [displayed, setDisplayed] = useState("");
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[phraseIdx];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!deleting && charIdx < current.length) {
+      timeout = setTimeout(() => setCharIdx((c) => c + 1), typingSpeed);
+    } else if (!deleting && charIdx === current.length) {
+      timeout = setTimeout(() => setDeleting(true), pauseMs);
+    } else if (deleting && charIdx > 0) {
+      timeout = setTimeout(() => setCharIdx((c) => c - 1), deleteSpeed);
+    } else if (deleting && charIdx === 0) {
+      setDeleting(false);
+      setPhraseIdx((p) => (p + 1) % phrases.length);
+    }
+
+    setDisplayed(current.slice(0, charIdx));
+    return () => clearTimeout(timeout);
+  }, [charIdx, deleting, phraseIdx, phrases, typingSpeed, pauseMs, deleteSpeed]);
+
+  return displayed;
+}
+
 export default function Hero() {
   const { t } = useTranslate();
+
+  const typingPhrases = [
+    "Design. Develop. Automate. Scale.",
+    "Web Apps. Mobile Apps. AI Systems.",
+    "Built in Surat. Trusted Globally.",
+    "Your Vision. Our Execution.",
+  ];
+  const typedText = useTypingEffect(typingPhrases);
 
   const brandLogos: Array<{ name: string; image?: string; icon?: string }> = [
     { name: "CarePartner", image: "/carepartner.png" },
@@ -43,9 +80,10 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <h2 className="text-lg md:text-xl font-bold tracking-widest text-zinc-650 dark:text-zinc-400 uppercase mb-4">
-            {t("brand.tagline")}
+          {/* Typing Subtitle */}
+          <h2 className="text-lg md:text-xl font-bold tracking-widest text-zinc-650 dark:text-zinc-400 uppercase mb-4 min-h-[2rem] flex items-center gap-0.5">
+            <span>{typedText}</span>
+            <span className="inline-block w-[2px] h-[1.1em] bg-[#FAB818] ml-0.5 animate-[blink_1s_step-end_infinite] align-middle" />
           </h2>
 
           <p className="text-sm md:text-base text-zinc-500 max-w-lg lg:max-w-md mb-8 leading-relaxed">
