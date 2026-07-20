@@ -5,13 +5,21 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
+    // Disable Lenis smooth scroll on mobile touch devices for 120Hz native touch scrolling
+    const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+    if (isTouch) return;
+
     // Scroll window to top on reload to make loading screen align perfectly
-    window.scrollTo(0, 0);
+    if (window.scrollY === 0) {
+      window.scrollTo(0, 0);
+    }
 
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard expo easing
+      duration: 0.85, // reduced duration for snappy, responsive feel (was 1.4s)
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.5,
     });
 
     let rafId: number;
@@ -35,7 +43,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         if (element) {
           lenis.scrollTo(element as HTMLElement, {
             offset: -80, // Navbar height offset
-            duration: 1.5,
+            duration: 1.0,
           });
         }
       }

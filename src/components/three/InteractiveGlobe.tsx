@@ -189,6 +189,7 @@ export default function InteractiveGlobe() {
     let clock = new THREE.Clock();
     let animId: number;
     let isVisible = true;
+    let lastScrollProgress = -1;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -244,18 +245,21 @@ export default function InteractiveGlobe() {
       innerGlobe.scale.set(scaleVal, scaleVal, scaleVal);
       linesGroup.scale.set(scaleVal, scaleVal, scaleVal);
 
-      // 3. Dispersal / Explosion logic
-      const posAttr = particleGeometry.attributes.position;
-      const posArray = posAttr.array as Float32Array;
-      const maxDispersal = 15; // units to push particles outward
+      // 3. Dispersal / Explosion logic — ONLY update GPU buffer if scroll position changed
+      if (Math.abs(scrollProgress - lastScrollProgress) > 0.001) {
+        lastScrollProgress = scrollProgress;
+        const posAttr = particleGeometry.attributes.position;
+        const posArray = posAttr.array as Float32Array;
+        const maxDispersal = 15; // units to push particles outward
 
-      for (let i = 0; i < posArray.length; i += 3) {
-        const speedMultiplier = 1 + (i % 7) * 0.25; // unique speed per particle
-        posArray[i] = originalPositions[i] + randomDirs[i] * scrollProgress * maxDispersal * speedMultiplier;
-        posArray[i + 1] = originalPositions[i + 1] + randomDirs[i + 1] * scrollProgress * maxDispersal * speedMultiplier;
-        posArray[i + 2] = originalPositions[i + 2] + randomDirs[i + 2] * scrollProgress * maxDispersal * speedMultiplier;
+        for (let i = 0; i < posArray.length; i += 3) {
+          const speedMultiplier = 1 + (i % 7) * 0.25; // unique speed per particle
+          posArray[i] = originalPositions[i] + randomDirs[i] * scrollProgress * maxDispersal * speedMultiplier;
+          posArray[i + 1] = originalPositions[i + 1] + randomDirs[i + 1] * scrollProgress * maxDispersal * speedMultiplier;
+          posArray[i + 2] = originalPositions[i + 2] + randomDirs[i + 2] * scrollProgress * maxDispersal * speedMultiplier;
+        }
+        posAttr.needsUpdate = true;
       }
-      posAttr.needsUpdate = true;
 
       // 4. Fading connecting lines and inner sphere to prevent stretching artifacts
       lineMaterial.opacity = 0.12 * (1 - scrollProgress);
