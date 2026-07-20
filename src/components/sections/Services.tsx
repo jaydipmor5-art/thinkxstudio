@@ -108,8 +108,9 @@ export default function Services() {
 
 function ServiceCard({ id, title, items, icon }: ServiceCardProps) {
   return (
-    <div
-      className="relative glassmorphism rounded-2xl p-6 overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-accent-cyan/40 dark:hover:border-accent-cyan/40 hover:scale-[1.02] hover:shadow-[0_15px_45px_rgba(6,182,212,0.04)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.06)] min-h-[300px] flex flex-col justify-between group transition-all duration-500 cursor-pointer"
+    <a
+      href="#contact"
+      className="relative glassmorphism rounded-2xl p-6 overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-accent-cyan/40 dark:hover:border-accent-cyan/40 hover:scale-[1.02] hover:shadow-[0_15px_45px_rgba(6,182,212,0.04)] dark:hover:shadow-[0_15px_45px_rgba(6,182,212,0.06)] min-h-[300px] flex flex-col justify-between group transition-all duration-500 cursor-pointer no-underline"
     >
       {/* Main Content View */}
       <div>
@@ -131,10 +132,10 @@ function ServiceCard({ id, title, items, icon }: ServiceCardProps) {
       </div>
 
       {/* Footer Tag */}
-      <div className="pt-6 border-t border-zinc-200/50 dark:border-zinc-900/60 flex items-center justify-between text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-6">
-        <span>Click for Quote</span>
-        <span className="text-xs transition-transform duration-300 group-hover:translate-x-1">→</span>
+      <div className="pt-6 border-t border-zinc-200/50 dark:border-zinc-900/60 flex items-center justify-between text-[10px] font-bold text-[#FAB818] uppercase tracking-widest mt-6">
+        <span>Get a Free Quote →</span>
+        <span className="text-xs transition-transform duration-300 group-hover:translate-x-1.5">→</span>
       </div>
-    </div>
+    </a>
   );
 }

@@ -58,20 +58,9 @@ export default function FloatingCTA() {
           <a
             href="tel:+919023700622"
             className="w-10 h-10 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white flex items-center justify-center transition-all shadow-xl"
-            title="Call Support"
+            title="Call Now"
           >
             <Phone size={16} />
-          </a>
-
-          {/* WhatsApp Quick chat */}
-          <a
-            href="https://wa.me/919023700622?text=Hi%20ThinkXstudio%20team,%20I'm%2520interested%20in%20a%20project%20consulting%20session!"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 rounded-full bg-emerald-600 hover:bg-emerald-500 border border-emerald-500 text-white flex items-center justify-center transition-all shadow-xl"
-            title="WhatsApp Inquiry"
-          >
-            <MessageCircle size={18} />
           </a>
         </div>
       )}

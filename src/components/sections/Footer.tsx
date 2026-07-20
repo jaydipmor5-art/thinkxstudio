@@ -1,138 +1,25 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import * as THREE from "three";
 import { useTranslate } from "../../context/LanguageContext";
-import { ArrowUpRight, Send } from "lucide-react";
+import { ArrowUpRight, Send, CheckCircle } from "lucide-react";
 
 export default function Footer() {
   const { t } = useTranslate();
-  const globeContainerRef = useRef<HTMLDivElement | null>(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
-  useEffect(() => {
-    const container = globeContainerRef.current;
-    if (!container) return;
-
-    const width = container.clientWidth;
-    const height = container.clientHeight || 150;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 8;
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
-
-    // 1. Shimmering Particle Core Sphere
-    const particleGeometry = new THREE.BufferGeometry();
-    const particleCount = 130;
-    const positions = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-      const u = Math.random();
-      const v = Math.random();
-      const theta = u * 2.0 * Math.PI;
-      const phi = Math.acos(2.0 * v - 1.0);
-      const r = 2.0; // Sphere radius
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi);
-    }
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const particleMaterial = new THREE.PointsMaterial({
-      color: 0xFAB818, // Brand Gold
-      size: 0.08,
-      transparent: true,
-      opacity: 0.75,
-    });
-    const particleSphere = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particleSphere);
-
-    // 2. Gyroscopic Orbital Ring 1 (Horizontal Golden Ring)
-    const ringGeom1 = new THREE.RingGeometry(2.45, 2.48, 48);
-    const ringMat1 = new THREE.MeshBasicMaterial({
-      color: 0xFAB818, // Gold
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.45
-    });
-    const ring1 = new THREE.Mesh(ringGeom1, ringMat1);
-    ring1.rotation.x = Math.PI / 2.8; // Tilt
-    scene.add(ring1);
-
-    // 3. Gyroscopic Orbital Ring 2 (Vertical Cyan Ring)
-    const ringGeom2 = new THREE.RingGeometry(2.7, 2.73, 48);
-    const ringMat2 = new THREE.MeshBasicMaterial({
-      color: 0x06B6D4, // Cyan
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.35
-    });
-    const ring2 = new THREE.Mesh(ringGeom2, ringMat2);
-    ring2.rotation.y = Math.PI / 4.2; // Different tilt
-    scene.add(ring2);
-
-    let animId: number;
-    let isVisible = false;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-      },
-      { threshold: 0.01 }
-    );
-    observer.observe(container);
-
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      if (!isVisible) return;
-
-      // Rotate particle core
-      particleSphere.rotation.y += 0.0035;
-      particleSphere.rotation.x += 0.0018;
-
-      // Interactive core breathing (pulse effect) using sine wave
-      const time = Date.now() * 0.0012;
-      const pulse = 1.0 + Math.sin(time * 2) * 0.07;
-      particleSphere.scale.set(pulse, pulse, pulse);
-
-      // Rotate orbital gyroscopic rings in opposite directions
-      ring1.rotation.z += 0.006;
-      ring2.rotation.z -= 0.004;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    const handleResize = () => {
-      if (!container) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight || 150;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", handleResize);
-      observer.unobserve(container);
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
-      }
-      particleGeometry.dispose();
-      particleMaterial.dispose();
-      ringGeom1.dispose();
-      ringMat1.dispose();
-      ringGeom2.dispose();
-      ringMat2.dispose();
-      renderer.dispose();
-    };
-  }, []);
+  const handleNewsletter = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail) return;
+    // Redirect to WhatsApp with subscription message
+    const msg = encodeURIComponent(`Hi ThinkXstudio! I'd like to subscribe to your newsletter. My email: ${newsletterEmail}`);
+    window.open(`https://wa.me/919023700622?text=${msg}`, "_blank");
+    setSubscribed(true);
+    setNewsletterEmail("");
+    setTimeout(() => setSubscribed(false), 5000);
+  };
 
   return (
     <footer className="border-t border-zinc-800/60 bg-[#070912] relative overflow-hidden py-20">
@@ -240,26 +127,57 @@ export default function Footer() {
             <p className="text-xs text-zinc-400/85 mb-4 leading-relaxed font-semibold">
               Get bi-weekly updates on Latest AI advancements and Business automation insights.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="relative">
-              <input
-                type="email"
-                required
-                placeholder="Enter email address"
-                className="w-full bg-[#111322] border border-zinc-800 rounded-xl py-3 pl-4 pr-12 text-xs text-zinc-300 outline-none focus:border-[#FAB818] focus:ring-1 focus:ring-[#FAB818]/25 placeholder:text-zinc-600 transition-all font-semibold"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-gradient-brand text-white flex items-center justify-center hover:opacity-90 transition-opacity"
-              >
-                <Send size={12} />
-              </button>
-            </form>
+            {subscribed ? (
+              <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold">
+                <CheckCircle size={16} />
+                <span>Subscribed! We'll reach out via WhatsApp.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletter} className="relative">
+                <input
+                  type="email"
+                  required
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Enter email address"
+                  className="w-full bg-[#111322] border border-zinc-800 rounded-xl py-3 pl-4 pr-12 text-xs text-zinc-300 outline-none focus:border-[#FAB818] focus:ring-1 focus:ring-[#FAB818]/25 placeholder:text-zinc-600 transition-all font-semibold"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-gradient-brand text-white flex items-center justify-center hover:opacity-90 transition-opacity"
+                >
+                  <Send size={12} />
+                </button>
+              </form>
+            )}
           </div>
 
-          {/* Footer Globe Column with Gold aura */}
-          <div className="lg:col-span-2 w-full h-[120px] flex items-center justify-center relative">
-            <div className="absolute w-20 h-20 rounded-full bg-[#FAB818]/5 blur-xl pointer-events-none -z-10" />
-            <div ref={globeContainerRef} className="w-full h-full min-h-[120px]" />
+          {/* Footer Brand Stats Column */}
+          <div className="lg:col-span-2 flex flex-col gap-4 items-start justify-center">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[10px] font-mono text-zinc-400">Systems Online</span>
+              </div>
+              <div className="text-[10px] font-mono text-zinc-600 space-y-1.5">
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-zinc-500">Projects</span>
+                  <span className="text-[#FAB818] font-bold">50+</span>
+                </div>
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-zinc-500">Clients</span>
+                  <span className="text-[#FAB818] font-bold">30+</span>
+                </div>
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-zinc-500">Uptime</span>
+                  <span className="text-emerald-400 font-bold">99.9%</span>
+                </div>
+                <div className="flex items-center justify-between gap-6">
+                  <span className="text-zinc-500">Support</span>
+                  <span className="text-zinc-300 font-bold">24/7</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -267,8 +185,8 @@ export default function Footer() {
         <div className="border-t border-zinc-800/80 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-zinc-500 gap-4">
           <span>© 2026 ThinkXstudio. All rights reserved. Synced via ThinkX OS.</span>
           <div className="flex gap-4">
-            <a href="#" className="hover:underline hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:underline hover:text-white">Terms of Service</a>
+            <a href="mailto:thinkxstudio@gmail.com?subject=Privacy%20Policy%20Inquiry" className="hover:underline hover:text-white">Privacy Policy</a>
+            <a href="mailto:thinkxstudio@gmail.com?subject=Terms%20of%20Service%20Inquiry" className="hover:underline hover:text-white">Terms of Service</a>
           </div>
         </div>
       </div>

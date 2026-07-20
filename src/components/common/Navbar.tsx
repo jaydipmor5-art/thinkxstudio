@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslate } from "../../context/LanguageContext";
-import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
@@ -54,6 +53,7 @@ export default function Navbar() {
     { name: t("nav.portfolio"), href: "#portfolio" },
     { name: t("nav.team"), href: "#team" },
     { name: t("nav.blog"), href: "#blog" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
@@ -95,8 +95,15 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTAs */}
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
           <LanguageSelector />
+          <a
+            href="#contact"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAB818] text-[#111322] text-xs font-black uppercase tracking-wider hover:bg-[#FFC94A] hover:scale-105 active:scale-95 transition-all duration-300 shadow-md shadow-[#FAB818]/20"
+          >
+            Get a Quote
+            <ArrowUpRight size={13} />
+          </a>
         </div>
 
         {/* Mobile Toggle Button */}
@@ -133,6 +140,14 @@ export default function Navbar() {
                 </a>
               );
             })}
+            {/* Mobile Get a Quote CTA */}
+            <a
+              href="#contact"
+              onClick={() => setIsOpen(false)}
+              className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#FAB818] text-[#111322] text-xs font-black uppercase tracking-wider"
+            >
+              Get a Quote <ArrowUpRight size={13} />
+            </a>
           </div>
         </div>
       )}
