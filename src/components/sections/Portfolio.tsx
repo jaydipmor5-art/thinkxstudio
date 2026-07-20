@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslate } from "../../context/LanguageContext";
 import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight } from "lucide-react";
 
@@ -174,131 +174,169 @@ export default function Portfolio() {
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
             return (
-              <div
+              <PortfolioBlock
                 key={project.title}
-                className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-16 text-left ${
-                  isEven ? "" : "lg:flex-row-reverse"
-                } group`}
-              >
-                {/* Left Side: Mockups Visual Container */}
-                <div className="w-full lg:w-1/2 flex justify-center relative">
-                  {/* Backdrop Glow Orb */}
-                  <div className={`absolute w-[280px] h-[280px] rounded-full ${project.glowColor} blur-[90px] pointer-events-none -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
-                  
-                  {/* Main Container Frame */}
-                  <div className={`w-full max-w-[500px] aspect-[16/11] rounded-[2.5rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br ${project.gradient} p-8 flex items-center justify-center relative overflow-hidden shadow-lg transition-all duration-500 group-hover:shadow-2xl group-hover:border-zinc-350 dark:group-hover:border-zinc-700`}>
-                    
-                    {project.isApp ? (
-                      /* Realistic Mobile Phone Viewport (Standalone) */
-                      <div className="w-[130px] h-[240px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[24px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
-                        {/* Notch */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-zinc-800 rounded-b-md z-20" />
-                        <div className="w-full h-full pt-2.5 relative overflow-hidden">
-                          <SimulatedAppScreen />
-                        </div>
-                      </div>
-                    ) : (
-                      /* Clean Desktop Device Frame (No overlapping phone to prevent text crop) */
-                      <div className="w-full h-full relative flex items-center justify-center">
-                        {/* Desktop Browser Mockup */}
-                        <div className="w-full h-full bg-[#0a0f1d] rounded-xl border border-zinc-200/10 shadow-2xl overflow-hidden flex flex-col justify-between transform transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
-                          {/* Browser bar */}
-                          <div className="bg-zinc-900 border-b border-zinc-800 py-1.5 px-3 flex items-center gap-1 text-[7px] font-mono text-zinc-500 select-none flex-shrink-0">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                            <span className="ml-2 truncate text-zinc-400 font-medium">{project.siteName}</span>
-                          </div>
-                          {/* Live Webpage Iframe Viewport (Scrollbar-free & Scaled) */}
-                          <div className="flex-grow w-full relative overflow-hidden bg-[#0a0f1d]">
-                            <iframe
-                              src={project.mockUrl}
-                              title={project.title}
-                              className="absolute top-0 left-0 border-0 bg-[#0a0f1d]"
-                              style={{
-                                width: "250%",
-                                height: "250%",
-                                transform: "scale(0.4)",
-                                transformOrigin: "top left",
-                                pointerEvents: "none",
-                                overflow: "hidden"
-                              }}
-                              scrolling="no"
-                              sandbox="allow-scripts allow-same-origin allow-popups"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                  </div>
-                </div>
-
-                {/* Right Side: Showcase Information */}
-                <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-4">
-                    {/* Performance badging */}
-                    <div className="flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-mono font-bold text-emerald-500">
-                      <Zap size={12} />
-                      <span>Peak Perf</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20 text-xs font-mono font-bold text-accent-cyan">
-                      <Target size={12} />
-                      <span>SEO Verified</span>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="text-[#FAB818] text-xs font-bold uppercase tracking-widest mb-4">
-                    {project.tagline}
-                  </p>
-
-                  <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 max-w-lg">
-                    {project.desc}
-                  </p>
-
-                  {/* Core Features list */}
-                  <div className="flex flex-col gap-2.5 mb-8">
-                    {project.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2.5 text-xs text-zinc-650 dark:text-zinc-300 font-bold">
-                        <CheckCircle2 size={14} className="text-accent-cyan flex-shrink-0" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Technology Tags and Call to Action */}
-                  <div className="flex flex-wrap gap-2 items-center border-t border-zinc-200/50 dark:border-zinc-800/40 pt-6">
-                    <div className="flex flex-wrap gap-1.5 flex-grow">
-                      {project.tech.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/60 text-[10px] text-zinc-550 dark:text-zinc-400 font-bold font-mono"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <a
-                      href={project.mockUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-5 py-3 rounded-full bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-black text-xs uppercase tracking-wider transition-all hover:scale-[1.03] active:scale-[0.97] shadow-md hover:shadow-lg group/btn mt-2 sm:mt-0"
-                    >
-                      <span>{project.isApp ? "Launch App" : "Explore Site"}</span>
-                      <ArrowUpRight size={14} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                    </a>
-                  </div>
-                </div>
-
-              </div>
+                project={project}
+                index={index}
+                isEven={isEven}
+              />
             );
           })}
         </div>
       </div>
     </section>
+  );
+}
+
+interface PortfolioBlockProps {
+  project: {
+    title: string;
+    tagline: string;
+    desc: string;
+    features: string[];
+    tech: string[];
+    gradient: string;
+    glowColor: string;
+    mockUrl: string;
+    siteName?: string;
+    isApp?: boolean;
+  };
+  index: number;
+  isEven: boolean;
+}
+
+function PortfolioBlock({ project, index, isEven }: PortfolioBlockProps) {
+  const blockRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = blockRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={blockRef}
+      className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-16 text-left ${
+        isEven ? "" : "lg:flex-row-reverse"
+      } group`}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(40px)",
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${index * 0.15}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${index * 0.15}s`,
+      }}
+    >
+      {/* Left Side: Mockups Visual Container */}
+      <div className="w-full lg:w-1/2 flex justify-center relative">
+        {/* Backdrop Glow Orb */}
+        <div className={`absolute w-[280px] h-[280px] rounded-full ${project.glowColor} blur-[90px] pointer-events-none -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
+        
+        {/* Main Container Frame */}
+        <div className={`w-full max-w-[500px] aspect-[16/11] rounded-[2.5rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br ${project.gradient} p-8 flex items-center justify-center relative overflow-hidden shadow-lg transition-all duration-500 group-hover:shadow-2xl group-hover:border-zinc-350 dark:group-hover:border-zinc-700`}>
+          {project.isApp ? (
+            <div className="w-[130px] h-[240px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[24px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-zinc-800 rounded-b-md z-20" />
+              <div className="w-full h-full pt-2.5 relative overflow-hidden">
+                <SimulatedAppScreen />
+              </div>
+            </div>
+          ) : (
+            <div className="w-full h-full relative flex items-center justify-center">
+              <div className="w-full h-full bg-[#0a0f1d] rounded-xl border border-zinc-200/10 shadow-2xl overflow-hidden flex flex-col justify-between transform transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
+                <div className="bg-zinc-900 border-b border-zinc-800 py-1.5 px-3 flex items-center gap-1 text-[7px] font-mono text-zinc-500 select-none flex-shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  <span className="ml-2 truncate text-zinc-400 font-medium">{project.siteName}</span>
+                </div>
+                <div className="flex-grow w-full relative overflow-hidden bg-[#0a0f1d]">
+                  <iframe
+                    src={project.mockUrl}
+                    title={project.title}
+                    className="absolute top-0 left-0 border-0 bg-[#0a0f1d]"
+                    style={{
+                      width: "250%",
+                      height: "250%",
+                      transform: "scale(0.4)",
+                      transformOrigin: "top left",
+                      pointerEvents: "none",
+                      overflow: "hidden"
+                    }}
+                    scrolling="no"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Right Side: Showcase Information */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-mono font-bold text-emerald-500">
+            <Zap size={12} />
+            <span>Peak Perf</span>
+          </div>
+          <div className="flex items-center gap-1.5 bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20 text-xs font-mono font-bold text-accent-cyan">
+            <Target size={12} />
+            <span>SEO Verified</span>
+          </div>
+        </div>
+
+        <h3 className="text-2xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white mb-3">
+          {project.title}
+        </h3>
+        <p className="text-[#FAB818] text-xs font-bold uppercase tracking-widest mb-4">
+          {project.tagline}
+        </p>
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 max-w-lg">
+          {project.desc}
+        </p>
+
+        <div className="flex flex-col gap-2.5 mb-8">
+          {project.features.map((feature) => (
+            <div key={feature} className="flex items-center gap-2.5 text-xs text-zinc-650 dark:text-zinc-300 font-bold">
+              <CheckCircle2 size={14} className="text-accent-cyan flex-shrink-0" />
+              <span>{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-2 items-center border-t border-zinc-200/50 dark:border-zinc-800/40 pt-6">
+          <div className="flex flex-wrap gap-1.5 flex-grow">
+            {project.tech.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/60 text-[10px] text-zinc-550 dark:text-zinc-400 font-bold font-mono"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <a
+            href={project.mockUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 px-5 py-3 rounded-full bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-black text-xs uppercase tracking-wider transition-all hover:scale-[1.03] active:scale-[0.97] shadow-md hover:shadow-lg group/btn mt-2 sm:mt-0"
+          >
+            <span>{project.isApp ? "Launch App" : "Explore Site"}</span>
+            <ArrowUpRight size={14} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
