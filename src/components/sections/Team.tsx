@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslate } from "../../context/LanguageContext";
-import { Mail, Sparkles, ShieldCheck, Terminal, Cpu } from "lucide-react";
+import { Mail, Sparkles, ShieldCheck, Terminal, Cpu, Calendar, ArrowUpRight } from "lucide-react";
 
 interface TeamMember {
   id: "jaydip" | "darshil";
@@ -300,37 +300,55 @@ export default function Team() {
                       </div>
                     </div>
 
-                    {/* Social Connects */}
-                    <div className="flex gap-2 w-full justify-center mt-1">
-                      <a 
-                        href={activeMember.socials.linkedin} 
-                        target="_blank" 
+                    {/* Social Connects + 1-Click Booking CTA */}
+                    <div className="flex flex-col gap-2 w-full mt-1">
+                      <a
+                        href={`https://wa.me/919023700622?text=${encodeURIComponent(
+                          `Hi ${activeMember.name}! I'd like to book a 15-min consulting session with you.`
+                        )}`}
+                        target="_blank"
                         rel="noreferrer"
-                        className="flex-1 py-2 rounded-xl bg-[#0077B5] hover:bg-[#006297] border border-[#0077B5] transition-all duration-300 flex items-center justify-center text-white shadow-[0_0_12px_rgba(0,119,181,0.25)] hover:scale-103"
+                        className="w-full py-2.5 px-3 rounded-xl bg-[#FAB818] hover:bg-[#FFC94A] text-[#111322] font-black text-xs uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 shadow-md shadow-[#FAB818]/20 hover:scale-[1.02] active:scale-[0.98]"
                       >
-                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
-                          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
+                        <Calendar size={14} />
+                        <span>Book 15-min Call</span>
+                        <ArrowUpRight size={13} />
                       </a>
-                      <a 
-                        href={activeMember.socials.instagram} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="flex-1 py-2 rounded-xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] hover:opacity-95 border border-transparent transition-all duration-300 flex items-center justify-center text-white shadow-[0_0_12px_rgba(220,39,67,0.25)] hover:scale-103"
-                      >
-                        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                        </svg>
-                      </a>
-                      <a 
-                        href={`mailto:${activeMember.socials.email}`} 
-                        className="flex-1 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-800 border border-zinc-800 dark:border-zinc-800 transition-all duration-300 flex items-center justify-center text-white hover:scale-103"
-                        style={{ boxShadow: `0 0 12px ${activeMember.accentColor}18` }}
-                      >
-                        <Mail size={13} style={{ color: activeMember.accentColor }} />
-                      </a>
+
+                      <div className="flex gap-2 w-full">
+                        <a 
+                          href={activeMember.socials.linkedin} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="flex-1 py-2 rounded-xl bg-[#0077B5] hover:bg-[#006297] border border-[#0077B5] transition-all duration-300 flex items-center justify-center text-white shadow-[0_0_12px_rgba(0,119,181,0.25)] hover:scale-103"
+                          title="LinkedIn Profile"
+                        >
+                          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                          </svg>
+                        </a>
+                        <a 
+                          href={activeMember.socials.instagram} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="flex-1 py-2 rounded-xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] hover:opacity-95 border border-transparent transition-all duration-300 flex items-center justify-center text-white shadow-[0_0_12px_rgba(220,39,67,0.25)] hover:scale-103"
+                          title="Instagram Profile"
+                        >
+                          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                          </svg>
+                        </a>
+                        <a 
+                          href={`mailto:${activeMember.socials.email}`} 
+                          className="flex-1 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-800 border border-zinc-800 dark:border-zinc-800 transition-all duration-300 flex items-center justify-center text-white hover:scale-103"
+                          style={{ boxShadow: `0 0 12px ${activeMember.accentColor}18` }}
+                          title="Direct Email"
+                        >
+                          <Mail size={13} style={{ color: activeMember.accentColor }} />
+                        </a>
+                      </div>
                     </div>
                   </div>
 
