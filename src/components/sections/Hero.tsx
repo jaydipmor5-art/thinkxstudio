@@ -46,11 +46,35 @@ export default function Hero() {
   ];
   const typedText = useTypingEffect(typingPhrases);
 
-  const brandLogos: Array<{ name: string; image?: string; icon?: string }> = [
-    { name: "CarePartner", image: "/carepartner.png" },
-    { name: "HDE Pvt Ltd", image: "/hde pvt ltd.png" },
-    { name: "Health Hub", image: "/health_hub.png" },
-    { name: "CarePartner City", image: "/carepartner_city.png" },
+  const brandLogos = [
+    {
+      name: "CarePartner",
+      image: "/carepartner.png",
+      metric: "10,000+ Patients",
+      tag: "Hospital ERP",
+      color: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
+    },
+    {
+      name: "HDE Pvt Ltd",
+      image: "/hde pvt ltd.png",
+      metric: "50+ Infra Sites",
+      tag: "Industrial CRM",
+      color: "border-accent-cyan/30 text-accent-cyan bg-accent-cyan/10",
+    },
+    {
+      name: "Health Hub",
+      image: "/health_hub.png",
+      metric: "99.9% Record Uptime",
+      tag: "EHR Platform",
+      color: "border-amber-400/30 text-amber-400 bg-amber-400/10",
+    },
+    {
+      name: "CarePartner City",
+      image: "/carepartner_city.png",
+      metric: "4.9★ Verified App",
+      tag: "Telehealth OS",
+      color: "border-purple-400/30 text-purple-400 bg-purple-400/10",
+    },
   ];
 
   return (
@@ -126,36 +150,35 @@ export default function Hero() {
         <div className="flex-1 w-full max-w-[500px] lg:max-w-none flex items-center justify-center pointer-events-none" />
       </div>
 
-      {/* Infinite scrolling Client Logo Wall */}
-      <div className="w-full border-y border-zinc-200/60 bg-white/20 py-6 mt-12 relative overflow-hidden pointer-events-auto">
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
-        
-        <div className="animate-marquee gap-16 md:gap-24 px-4 items-center">
-          {/* Repeat list 4 times for seamless looping with fewer items */}
-          {[...brandLogos, ...brandLogos, ...brandLogos, ...brandLogos].map((logo, idx) => (
+      {/* Infinite scrolling Client Logo Wall with Impact Metrics */}
+      <div className="w-full border-y border-zinc-200/60 dark:border-zinc-800/60 bg-white/30 dark:bg-zinc-950/40 backdrop-blur-md py-5 mt-12 relative overflow-hidden pointer-events-auto">
+        <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-28 bg-gradient-to-l from-background to-transparent z-10" />
+
+        <div className="animate-marquee gap-12 md:gap-16 px-4 items-center">
+          {[...brandLogos, ...brandLogos, ...brandLogos].map((logo, idx) => (
             <div
               key={`${logo.name}-${idx}`}
-              className="flex flex-col items-center gap-2 select-none opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-4 px-5 py-2.5 rounded-2xl bg-white/70 dark:bg-zinc-900/60 border border-zinc-200/60 dark:border-zinc-800/60 shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300 select-none group cursor-pointer flex-shrink-0"
             >
-              {logo.image ? (
-                <img
-                  src={logo.image}
-                  alt={logo.name}
-                  className="h-8 md:h-9 object-contain dark:brightness-0 dark:invert"
-                />
-              ) : (
-                <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-500 font-bold tracking-widest text-lg md:text-xl uppercase">
-                  <span className="w-8 h-8 rounded-full border border-zinc-300/60 flex items-center justify-center font-black text-xs bg-white/80 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 shadow-sm">
-                    {logo.icon}
+              <img
+                src={logo.image}
+                alt={logo.name}
+                className="h-8 md:h-10 w-auto object-contain dark:brightness-0 dark:invert group-hover:scale-105 transition-transform"
+              />
+              <div className="flex flex-col text-left border-l border-zinc-200 dark:border-zinc-800 pl-3">
+                <span className="text-[11px] font-black text-zinc-900 dark:text-zinc-100 tracking-tight leading-none mb-1 group-hover:text-[#FAB818] transition-colors">
+                  {logo.name}
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold font-mono border ${logo.color}`}>
+                    {logo.metric}
                   </span>
-                  <span>{logo.name}</span>
+                  <span className="text-[9px] text-zinc-400 font-medium hidden sm:inline">
+                    {logo.tag}
+                  </span>
                 </div>
-              )}
-              {/* Brand name vertically below the logo */}
-              <span className="text-[9px] md:text-[10px] tracking-[0.25em] font-extrabold text-zinc-500 dark:text-zinc-400 uppercase">
-                {logo.name}
-              </span>
+              </div>
             </div>
           ))}
         </div>
