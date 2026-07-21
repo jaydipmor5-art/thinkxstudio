@@ -2,13 +2,11 @@
 
 import React, { useEffect, useState, useRef } from "react";
 
-/**
- * CustomCursor — Sleek, modern precision cursor.
- * Uses hardware-accelerated translate3d with 0 text obstruction.
- */
 export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isOverDarkSection, setIsOverDarkSection] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const mouseCoords = useRef({ x: -100, y: -100 });
@@ -24,6 +22,15 @@ export default function CustomCursor() {
       return;
     }
 
+    const checkTheme = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setIsDarkMode(isDark);
+    };
+    checkTheme();
+
+    const themeObserver = new MutationObserver(checkTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseCoords.current.x = e.clientX;
       mouseCoords.current.y = e.clientY;
@@ -36,14 +43,23 @@ export default function CustomCursor() {
 
     const handleMouseLeave = () => setIsVisible(false);
 
-    // Event delegation to detect hover on interactive elements
+    // Event delegation (0% CPU overhead & zero memory leak)
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
+
+      // Check hoverable elements
       if (target.closest('a, button, input, select, textarea, [role="button"], .hoverable')) {
         setIsHovered(true);
       } else {
         setIsHovered(false);
+      }
+
+      // Check dark section detection
+      if (target.closest("footer, #team, [data-theme='dark']")) {
+        setIsOverDarkSection(true);
+      } else {
+        setIsOverDarkSection(false);
       }
     };
 
@@ -55,10 +71,11 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseover", handleMouseOver);
+      themeObserver.disconnect();
     };
   }, [isVisible]);
 
-  // Smooth trail animation
+  // Smooth trail effect using direct DOM translate3d
   useEffect(() => {
     if (isTouchDevice) return;
 
@@ -66,55 +83,101 @@ export default function CustomCursor() {
       const dx = mouseCoords.current.x - trailCoords.current.x;
       const dy = mouseCoords.current.y - trailCoords.current.y;
 
-      trailCoords.current.x += dx * 0.22;
-      trailCoords.current.y += dy * 0.22;
+      const speed = 0.18;
+      trailCoords.current.x += dx * speed;
+      trailCoords.current.y += dy * speed;
 
       if (cursorRingRef.current) {
-        cursorRingRef.current.style.transform = `translate3d(${trailCoords.current.x}px, ${trailCoords.current.y}px, 0) translate(-50%, -50%)`;
+        cursorRingRef.current.style.transform = `translate3d(${trailCoords.current.x}px, ${trailCoords.current.y}px, 0) translate(-50%, -50%) scale(${isHovered ? 1.35 : 1})`;
       }
-
       if (cursorDotRef.current) {
-        cursorDotRef.current.style.transform = `translate3d(${mouseCoords.current.x}px, ${mouseCoords.current.y}px, 0) translate(-50%, -50%)`;
+        cursorDotRef.current.style.transform = `translate3d(${mouseCoords.current.x}px, ${mouseCoords.current.y}px, 0) translate(-50%, -50%) scale(${isHovered ? 0.6 : 1})`;
       }
 
       requestRef.current = requestAnimationFrame(updateTrail);
     };
 
     requestRef.current = requestAnimationFrame(updateTrail);
-
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current);
     };
-  }, [isTouchDevice]);
+  }, [isHovered, isTouchDevice]);
 
-  if (isTouchDevice) return null;
+  if (isTouchDevice || !isVisible) return null;
+
+  const leftArcStroke = isDarkMode || isOverDarkSection ? "#ffffff" : "#111322";
 
   return (
     <>
-      {/* Outer Ring — Thin, elegant golden halo that expands softly on hover without hiding text */}
+      {/* Outer Ring (Smoothed Trail) - Designed exactly like the logo */}
       <div
         ref={cursorRingRef}
-        className={`fixed top-0 left-0 pointer-events-none z-[99998] transition-opacity duration-300 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ willChange: "transform" }}
+        className="fixed pointer-events-none z-[99998] hidden md:block transition-transform duration-100 ease-out"
+        style={{
+          left: 0,
+          top: 0,
+          width: "32px",
+          height: "32px",
+          transform: "translate3d(0px, 0px, 0px) translate(-50%, -50%)",
+          willChange: "transform",
+        }}
       >
-        <div
-          className={`rounded-full border border-[#FAB818]/60 transition-all duration-300 ${
-            isHovered
-              ? "w-10 h-10 border-[#FAB818] bg-[#FAB818]/10 scale-110"
-              : "w-7 h-7 bg-transparent"
+        <svg
+          viewBox="0 0 100 100"
+          className={`w-full h-full transition-transform duration-300 ${
+            isHovered ? "animate-spin-slow" : ""
           }`}
-        />
+          style={{ transformOrigin: "center center" }}
+        >
+          {/* Left Navy/White Arcs */}
+          <path
+            d="M 50 8 A 42 42 0 0 0 50 92"
+            fill="none"
+            stroke={leftArcStroke}
+            strokeWidth="5"
+            strokeLinecap="round"
+            className="transition-colors duration-250"
+          />
+          <path
+            d="M 50 18 A 32 32 0 0 0 50 82"
+            fill="none"
+            stroke={leftArcStroke}
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            className="opacity-70 transition-colors duration-250"
+          />
+
+          {/* Right Gold Arcs */}
+          <path
+            d="M 50 8 A 42 42 0 0 1 50 92"
+            fill="none"
+            stroke="#FAB818"
+            strokeWidth="5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 50 18 A 32 32 0 0 1 50 82"
+            fill="none"
+            stroke="#FAB818"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            className="opacity-70"
+          />
+        </svg>
       </div>
 
-      {/* Inner Precision Center Dot */}
+      {/* Inner Dot */}
       <div
         ref={cursorDotRef}
-        className={`fixed top-0 left-0 w-2 h-2 rounded-full bg-[#FAB818] pointer-events-none z-[99999] transition-all duration-200 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        } ${isHovered ? "scale-125 bg-[#FAB818]" : "scale-100"}`}
-        style={{ willChange: "transform" }}
+        className="fixed pointer-events-none z-[99999] hidden md:block rounded-full bg-[#FAB818] shadow-[0_0_8px_rgba(250,184,24,0.4)]"
+        style={{
+          left: 0,
+          top: 0,
+          width: "6px",
+          height: "6px",
+          transform: "translate3d(0px, 0px, 0px) translate(-50%, -50%)",
+          willChange: "transform",
+        }}
       />
     </>
   );
