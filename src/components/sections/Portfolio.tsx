@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslate } from "../../context/LanguageContext";
-import { ArrowUpRight, Zap, Target, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Zap, Target, CheckCircle2, Award, TrendingUp, Users, ShieldCheck, Sparkles } from "lucide-react";
 
 interface Project {
   title: string;
@@ -15,11 +15,236 @@ interface Project {
   glowColor: string;
   siteName: string;
   mockUrl: string;
-  previewImg: string;
-  mobilePreviewImg?: string;
+  impactMetric: string;
+  impactLabel: string;
   features: string[];
   isApp?: boolean;
 }
+
+// Interactive simulated CarePartner Portal Mockup
+const SimulatedCarePartnerPortal = () => {
+  return (
+    <div className="w-full h-full bg-[#070b14] text-white p-3.5 flex flex-col justify-between select-none text-left font-sans">
+      {/* Top Navbar */}
+      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 mb-2 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-[8px] font-black text-emerald-400">
+            CP
+          </div>
+          <span className="text-[10px] font-black tracking-wide">CarePartner<span className="text-emerald-400">.services</span></span>
+          <span className="hidden sm:inline-block text-[8px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-bold">
+            Live v2.4
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1 text-[8px] font-mono text-zinc-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            99.9% Uptime
+          </span>
+          <div className="w-5 h-5 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[8px]">
+            🩺
+          </div>
+        </div>
+      </div>
+
+      {/* Main Body Grid */}
+      <div className="flex-grow flex flex-col gap-2">
+        {/* Banner */}
+        <div className="bg-gradient-to-r from-emerald-950/60 via-zinc-900 to-zinc-900 border border-emerald-500/20 rounded-xl p-2.5 flex items-center justify-between">
+          <div>
+            <span className="text-[7px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">Certified Medical Network</span>
+            <h4 className="text-[11px] font-black text-white leading-tight">Find Verified Caregivers & Nurses</h4>
+            <p className="text-[8px] text-zinc-400 mt-0.5">Automated matching across 12+ healthcare disciplines</p>
+          </div>
+          <div className="px-2.5 py-1.5 rounded-lg bg-emerald-500 text-black text-[9px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1">
+            <span>Book Now</span>
+            <span>→</span>
+          </div>
+        </div>
+
+        {/* 3 Metric Cards */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">Active Patients</span>
+            <span className="text-xs font-black text-white mt-0.5">10,480+</span>
+            <span className="text-[6px] text-emerald-400 font-bold mt-0.5">↑ 24% this mo</span>
+          </div>
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">Nurses On-Duty</span>
+            <span className="text-xs font-black text-emerald-400 mt-0.5">240+ Staff</span>
+            <span className="text-[6px] text-zinc-400 font-bold mt-0.5">Instant Dispatch</span>
+          </div>
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">Response Time</span>
+            <span className="text-xs font-black text-white mt-0.5">&lt; 15 Mins</span>
+            <span className="text-[6px] text-emerald-400 font-bold mt-0.5">99.4% CSAT</span>
+          </div>
+        </div>
+
+        {/* Live Booking Queue Row */}
+        <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-lg p-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">
+              👩‍⚕️
+            </div>
+            <div>
+              <div className="text-[8px] font-bold text-white flex items-center gap-1">
+                <span>ICU Home Care Booking</span>
+                <span className="text-[6px] px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono">CONFIRMED</span>
+              </div>
+              <span className="text-[7px] text-zinc-450">Caregiver assigned • Patient intake verified</span>
+            </div>
+          </div>
+          <span className="text-[8px] font-mono text-zinc-400">Just now</span>
+        </div>
+      </div>
+
+      {/* Footer bar */}
+      <div className="border-t border-zinc-800/80 pt-1.5 mt-1.5 flex items-center justify-between text-[7px] text-zinc-500 font-mono flex-shrink-0">
+        <span>Powered by ThinkXstudio Cloud Architecture</span>
+        <span className="text-emerald-400 font-bold">HIPAA Compliant</span>
+      </div>
+    </div>
+  );
+};
+
+// Interactive simulated HDE Industrial Portal
+const SimulatedHDEPortal = () => {
+  return (
+    <div className="w-full h-full bg-[#0a0c12] text-white p-3.5 flex flex-col justify-between select-none text-left font-sans">
+      <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-lg bg-[#FAB818]/20 border border-[#FAB818]/40 flex items-center justify-center text-[8px] font-black text-[#FAB818]">
+            HDE
+          </div>
+          <span className="text-[10px] font-black tracking-wide">HDE Pvt Ltd <span className="text-zinc-500">| Industrial</span></span>
+        </div>
+        <span className="text-[7px] font-mono px-2 py-0.5 rounded-full bg-[#FAB818]/10 text-[#FAB818] border border-[#FAB818]/20 font-bold">
+          50+ Active Infra Sites
+        </span>
+      </div>
+
+      <div className="flex-grow flex flex-col gap-2">
+        <div className="bg-gradient-to-r from-amber-950/40 via-zinc-900 to-zinc-900 border border-[#FAB818]/20 rounded-xl p-2.5 flex items-center justify-between">
+          <div>
+            <span className="text-[7px] font-mono uppercase tracking-wider text-[#FAB818] font-bold block">Engineering & Operations</span>
+            <h4 className="text-[11px] font-black text-white leading-tight">Heavy Machinery & Structural Systems</h4>
+            <p className="text-[8px] text-zinc-400 mt-0.5">Real-time inventory RFP and vendor procurement</p>
+          </div>
+          <div className="px-2.5 py-1.5 rounded-lg bg-[#FAB818] text-black text-[9px] font-black uppercase tracking-wider shadow-sm">
+            RFP Portal →
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">Heavy Equipment</span>
+            <span className="text-xs font-black text-white mt-0.5">140+ Units</span>
+            <span className="text-[6px] text-[#FAB818] font-bold mt-0.5">Ready to Deploy</span>
+          </div>
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">RFP Processing</span>
+            <span className="text-xs font-black text-[#FAB818] mt-0.5">3x Faster</span>
+            <span className="text-[6px] text-zinc-400 font-bold mt-0.5">Automated Matrix</span>
+          </div>
+          <div className="bg-zinc-900/80 border border-zinc-800 rounded-lg p-2 flex flex-col">
+            <span className="text-[7px] text-zinc-400 font-mono font-bold uppercase">Safety Compliance</span>
+            <span className="text-xs font-black text-white mt-0.5">ISO 9001:2015</span>
+            <span className="text-[6px] text-emerald-400 font-bold mt-0.5">Audit Passed</span>
+          </div>
+        </div>
+
+        <div className="bg-zinc-900/60 border border-zinc-800/80 rounded-lg p-2 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-md bg-[#FAB818]/20 text-[#FAB818] flex items-center justify-center text-[10px]">
+              🏗️
+            </div>
+            <div>
+              <div className="text-[8px] font-bold text-white flex items-center gap-1">
+                <span>Surat Port Structural Steel Project</span>
+                <span className="text-[6px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">STAGE 4 IN PROGRESS</span>
+              </div>
+              <span className="text-[7px] text-zinc-450">Telemetry synced • 45 Engineers on site</span>
+            </div>
+          </div>
+          <span className="text-[8px] font-mono text-zinc-400">Phase 2</span>
+        </div>
+      </div>
+
+      <div className="border-t border-zinc-800/80 pt-1.5 mt-1.5 flex items-center justify-between text-[7px] text-zinc-500 font-mono flex-shrink-0">
+        <span>Architected by ThinkXstudio Engineering</span>
+        <span className="text-[#FAB818] font-bold">100% On-Time Delivery</span>
+      </div>
+    </div>
+  );
+};
+
+// Interactive simulated Health Hub Admin ERP
+const SimulatedHealthHubPortal = () => {
+  return (
+    <div className="w-full h-full bg-[#080816] text-white p-3.5 flex flex-col justify-between select-none text-left font-sans">
+      <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded-lg bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-[8px] font-black text-purple-400">
+            HH
+          </div>
+          <span className="text-[10px] font-black tracking-wide">Health Hub <span className="text-purple-400">ERP & Clinic OS</span></span>
+        </div>
+        <span className="text-[7px] font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 font-bold">
+          Admin Dashboard
+        </span>
+      </div>
+
+      <div className="flex-grow flex flex-col gap-2">
+        <div className="grid grid-cols-4 gap-1.5">
+          <div className="bg-zinc-900/90 border border-zinc-800 rounded-lg p-1.5 flex flex-col">
+            <span className="text-[6px] font-mono text-zinc-400 uppercase font-bold">Total In-Patients</span>
+            <span className="text-[11px] font-black text-white">1,280</span>
+            <span className="text-[5px] text-emerald-400 font-bold">↑ 8% Today</span>
+          </div>
+          <div className="bg-zinc-900/90 border border-zinc-800 rounded-lg p-1.5 flex flex-col">
+            <span className="text-[6px] font-mono text-zinc-400 uppercase font-bold">Consultations</span>
+            <span className="text-[11px] font-black text-purple-400">342</span>
+            <span className="text-[5px] text-purple-300 font-bold">18 in queue</span>
+          </div>
+          <div className="bg-zinc-900/90 border border-zinc-800 rounded-lg p-1.5 flex flex-col">
+            <span className="text-[6px] font-mono text-zinc-400 uppercase font-bold">Doc Availability</span>
+            <span className="text-[11px] font-black text-white">48/52</span>
+            <span className="text-[5px] text-emerald-400 font-bold">92% Ready</span>
+          </div>
+          <div className="bg-zinc-900/90 border border-zinc-800 rounded-lg p-1.5 flex flex-col">
+            <span className="text-[6px] font-mono text-zinc-400 uppercase font-bold">Revenue Today</span>
+            <span className="text-[11px] font-black text-emerald-400">₹4.8L</span>
+            <span className="text-[5px] text-zinc-400 font-bold">Auto Invoiced</span>
+          </div>
+        </div>
+
+        {/* Live SVG Analytics Chart Simulation */}
+        <div className="bg-zinc-900/70 border border-zinc-800 rounded-xl p-2.5 flex flex-col justify-between">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[8px] font-black text-white uppercase tracking-wider">Hourly Patient Intake Velocity</span>
+            <span className="text-[7px] font-mono text-purple-400">Real-time Stream</span>
+          </div>
+          <div className="h-12 w-full flex items-end gap-1.5 pt-1">
+            {[35, 55, 40, 75, 90, 65, 80, 95, 70, 88, 100, 85].map((val, idx) => (
+              <div key={idx} className="flex-1 flex flex-col items-center gap-0.5">
+                <div
+                  className="w-full rounded-t-sm bg-gradient-to-t from-purple-600/40 to-purple-400 transition-all duration-500 hover:from-purple-500 hover:to-purple-300"
+                  style={{ height: `${val}%` }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-zinc-800/80 pt-1.5 mt-1.5 flex items-center justify-between text-[7px] text-zinc-500 font-mono flex-shrink-0">
+        <span>Engineered with Next.js 15 & Zustand State</span>
+        <span className="text-purple-400 font-bold">Multi-tenant Ready</span>
+      </div>
+    </div>
+  );
+};
 
 // Custom simulated screen for CarePartner City Mobile App
 const SimulatedAppScreen = () => {
@@ -88,7 +313,8 @@ export default function Portfolio() {
       glowColor: "bg-emerald-500/10",
       siteName: "carepartner.services",
       mockUrl: "https://carepartner.services/",
-      previewImg: "/carepartner_preview.png",
+      impactMetric: "10,000+ Bookings",
+      impactLabel: "99.9% Uptime Verified",
       features: [
         "Patient-Caregiver Matching Algorithm",
         "Automated Scheduling Engine",
@@ -106,7 +332,8 @@ export default function Portfolio() {
       glowColor: "bg-[#FAB818]/10",
       siteName: "hde-pvt-ltd.vercel.app",
       mockUrl: "https://hde-pvt-ltd.vercel.app/",
-      previewImg: "/hde_preview.png",
+      impactMetric: "50+ Active Infra Sites",
+      impactLabel: "3x Faster Procurement",
       features: [
         "Heavy Product Interactive Catalogs",
         "Vendor Proposal RFP Portal",
@@ -124,7 +351,8 @@ export default function Portfolio() {
       glowColor: "bg-accent-purple/10",
       siteName: "health-hub-admin-panel.vercel.app",
       mockUrl: "https://health-hub-admin-panel.vercel.app/",
-      previewImg: "/healthhub_preview.png",
+      impactMetric: "40% Admin Time Saved",
+      impactLabel: "Multi-Clinic Scaled",
       features: [
         "Interactive SVG Operations Dashboard",
         "Patient Intake & Booking Matrix",
@@ -142,7 +370,8 @@ export default function Portfolio() {
       glowColor: "bg-rose-500/10",
       siteName: "play.google.com/store/apps",
       mockUrl: "https://play.google.com/store/apps/details?id=com.carepartnercity.app&pcampaignid=web_share",
-      previewImg: "",
+      impactMetric: "4.9★ App Store Rating",
+      impactLabel: "Android & iOS Deployed",
       isApp: true,
       features: [
         "Real-Time Geo-Location Tracking",
@@ -159,7 +388,10 @@ export default function Portfolio() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <span className="text-xs font-mono font-bold text-[#FAB818] tracking-widest uppercase mb-2 block">
+            03 / Showcase
+          </span>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-white mb-4">
             {titleText}
           </h2>
@@ -189,18 +421,7 @@ export default function Portfolio() {
 }
 
 interface PortfolioBlockProps {
-  project: {
-    title: string;
-    tagline: string;
-    desc: string;
-    features: string[];
-    tech: string[];
-    gradient: string;
-    glowColor: string;
-    mockUrl: string;
-    siteName?: string;
-    isApp?: boolean;
-  };
+  project: Project;
   index: number;
   isEven: boolean;
 }
@@ -240,12 +461,12 @@ function PortfolioBlock({ project, index, isEven }: PortfolioBlockProps) {
       {/* Left Side: Mockups Visual Container */}
       <div className="w-full lg:w-1/2 flex justify-center relative">
         {/* Backdrop Glow Orb */}
-        <div className={`absolute w-[280px] h-[280px] rounded-full ${project.glowColor} blur-[90px] pointer-events-none -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
+        <div className={`absolute w-[320px] h-[320px] rounded-full ${project.glowColor} blur-[100px] pointer-events-none -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`} />
         
         {/* Main Container Frame */}
-        <div className={`w-full max-w-[500px] aspect-[16/11] rounded-[2.5rem] border border-zinc-200/80 dark:border-zinc-800/80 bg-gradient-to-br ${project.gradient} p-8 flex items-center justify-center relative overflow-hidden shadow-lg transition-all duration-500 group-hover:shadow-2xl group-hover:border-zinc-350 dark:group-hover:border-zinc-700`}>
+        <div className={`w-full max-w-[540px] aspect-[16/11] rounded-[2.5rem] border border-zinc-200/90 dark:border-zinc-800/80 bg-gradient-to-br ${project.gradient} p-4 sm:p-6 flex items-center justify-center relative overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:border-zinc-350 dark:group-hover:border-zinc-700`}>
           {project.isApp ? (
-            <div className="w-[130px] h-[240px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[24px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
+            <div className="w-[140px] sm:w-[155px] h-[255px] sm:h-[275px] bg-zinc-950 border-[5px] border-zinc-800 rounded-[28px] overflow-hidden relative shadow-2xl border-t-[8px] border-b-[8px] transform rotate-1 group-hover:scale-105 group-hover:rotate-0 transition-all duration-500">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-zinc-800 rounded-b-md z-20" />
               <div className="w-full h-full pt-2.5 relative overflow-hidden">
                 <SimulatedAppScreen />
@@ -253,29 +474,25 @@ function PortfolioBlock({ project, index, isEven }: PortfolioBlockProps) {
             </div>
           ) : (
             <div className="w-full h-full relative flex items-center justify-center">
-              <div className="w-full h-full bg-[#0a0f1d] rounded-xl border border-zinc-200/10 shadow-2xl overflow-hidden flex flex-col justify-between transform transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
-                <div className="bg-zinc-900 border-b border-zinc-800 py-1.5 px-3 flex items-center gap-1 text-[7px] font-mono text-zinc-500 select-none flex-shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  <span className="ml-2 truncate text-zinc-400 font-medium">{project.siteName}</span>
+              <div className="w-full h-full bg-[#0a0f1d] rounded-2xl border border-zinc-200/20 dark:border-zinc-800/80 shadow-2xl overflow-hidden flex flex-col justify-between transform transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
+                {/* Browser Top Chrome */}
+                <div className="bg-zinc-900 border-b border-zinc-800 py-1.5 px-3 flex items-center justify-between text-[7px] font-mono text-zinc-500 select-none flex-shrink-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-500/80" />
+                    <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                    <span className="ml-2 truncate text-zinc-300 font-medium">{project.siteName}</span>
+                  </div>
+                  <span className="hidden sm:inline-block text-[7px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                    ● SSL SECURED
+                  </span>
                 </div>
-                <div className="flex-grow w-full relative overflow-hidden bg-[#0a0f1d]">
-                  <iframe
-                    src={project.mockUrl}
-                    title={project.title}
-                    className="absolute top-0 left-0 border-0 bg-[#0a0f1d]"
-                    style={{
-                      width: "250%",
-                      height: "250%",
-                      transform: "scale(0.4)",
-                      transformOrigin: "top left",
-                      pointerEvents: "none",
-                      overflow: "hidden"
-                    }}
-                    scrolling="no"
-                    sandbox="allow-scripts allow-same-origin allow-popups"
-                  />
+
+                {/* Inner High-Fidelity Interactive Screen Render */}
+                <div className="flex-grow w-full relative overflow-hidden">
+                  {project.title === "CarePartner" && <SimulatedCarePartnerPortal />}
+                  {project.title === "HDE Pvt Ltd" && <SimulatedHDEPortal />}
+                  {project.title === "Health Hub Admin" && <SimulatedHealthHubPortal />}
                 </div>
               </div>
             </div>
@@ -285,42 +502,50 @@ function PortfolioBlock({ project, index, isEven }: PortfolioBlockProps) {
 
       {/* Right Side: Showcase Information */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center">
-        <div className="flex items-center gap-4 mb-4">
+        {/* Top Badges */}
+        <div className="flex flex-wrap items-center gap-3 mb-4">
           <div className="flex items-center gap-1.5 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 text-xs font-mono font-bold text-emerald-500">
             <Zap size={12} />
-            <span>Peak Perf</span>
+            <span>Peak Perf {project.perfScore}%</span>
           </div>
           <div className="flex items-center gap-1.5 bg-accent-cyan/10 px-3 py-1 rounded-full border border-accent-cyan/20 text-xs font-mono font-bold text-accent-cyan">
             <Target size={12} />
-            <span>SEO Verified</span>
+            <span>SEO {project.seoScore}%</span>
+          </div>
+          {/* Direct Impact Badge */}
+          <div className="flex items-center gap-1.5 bg-[#FAB818]/10 px-3 py-1 rounded-full border border-[#FAB818]/30 text-xs font-mono font-bold text-[#FAB818]">
+            <Award size={12} />
+            <span>{project.impactMetric}</span>
           </div>
         </div>
 
-        <h3 className="text-2xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white mb-3">
+        <h3 className="text-2xl md:text-4xl font-black tracking-tight text-zinc-900 dark:text-white mb-2">
           {project.title}
         </h3>
         <p className="text-[#FAB818] text-xs font-bold uppercase tracking-widest mb-4">
-          {project.tagline}
+          {project.tagline} • <span className="text-zinc-400 normal-case font-medium">{project.impactLabel}</span>
         </p>
         <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-6 max-w-lg">
           {project.desc}
         </p>
 
+        {/* Feature List */}
         <div className="flex flex-col gap-2.5 mb-8">
           {project.features.map((feature) => (
-            <div key={feature} className="flex items-center gap-2.5 text-xs text-zinc-650 dark:text-zinc-300 font-bold">
+            <div key={feature} className="flex items-center gap-2.5 text-xs text-zinc-700 dark:text-zinc-300 font-bold">
               <CheckCircle2 size={14} className="text-accent-cyan flex-shrink-0" />
               <span>{feature}</span>
             </div>
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-2 items-center border-t border-zinc-200/50 dark:border-zinc-800/40 pt-6">
+        {/* Tech Tags and Launch CTA */}
+        <div className="flex flex-wrap gap-3 items-center border-t border-zinc-200/70 dark:border-zinc-800/70 pt-6">
           <div className="flex flex-wrap gap-1.5 flex-grow">
             {project.tech.map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/60 text-[10px] text-zinc-550 dark:text-zinc-400 font-bold font-mono"
+                className="px-2.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-600 dark:text-zinc-400 font-bold font-mono"
               >
                 {tag}
               </span>
@@ -332,7 +557,7 @@ function PortfolioBlock({ project, index, isEven }: PortfolioBlockProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 px-5 py-3 rounded-full bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 font-black text-xs uppercase tracking-wider transition-all hover:scale-[1.03] active:scale-[0.97] shadow-md hover:shadow-lg group/btn mt-2 sm:mt-0"
           >
-            <span>{project.isApp ? "Launch App" : "Explore Site"}</span>
+            <span>{project.isApp ? "Launch App" : "Explore Live Site"}</span>
             <ArrowUpRight size={14} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
           </a>
         </div>

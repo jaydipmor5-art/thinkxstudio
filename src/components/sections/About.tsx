@@ -139,15 +139,34 @@ export default function About() {
             </div>
 
             {/* Tab Content Display */}
-            <div className="glassmorphism glassmorphism-glow rounded-2xl p-8 min-h-[220px] flex flex-col justify-between transition-all duration-300 hover:shadow-lg dark:hover:shadow-black/20">
+            <div className="glassmorphism glassmorphism-glow rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-lg dark:hover:shadow-black/20">
               <div className="animate-in fade-in slide-in-from-left-4 duration-300" key={activeTab}>
                 <h3 className="text-xl font-black mb-4 text-[#111322] dark:text-zinc-100 flex items-center gap-2">
                   <span className="w-1.5 h-6 bg-[#FAB818] rounded-full shadow-sm shadow-[#FAB818]/50" />
                   {tabsConfig.find((t) => t.id === activeTab)?.label}
                 </h3>
-                <p className="text-xs text-zinc-650 dark:text-zinc-400 leading-relaxed font-medium">
+                <p className="text-xs text-zinc-650 dark:text-zinc-400 leading-relaxed font-medium mb-6">
                   {tabsConfig.find((t) => t.id === activeTab)?.content}
                 </p>
+              </div>
+
+              {/* Quick Pillars to balance height */}
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-zinc-200/60 dark:border-zinc-800/60">
+                <div className="p-3 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 flex flex-col">
+                  <span className="text-[9px] font-mono font-bold text-[#FAB818] uppercase">Turnaround</span>
+                  <span className="text-xs font-black text-zinc-900 dark:text-white mt-0.5">2-4 Weeks</span>
+                  <span className="text-[8px] text-zinc-400 mt-0.5 font-medium">Rapid Delivery</span>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 flex flex-col">
+                  <span className="text-[9px] font-mono font-bold text-accent-cyan uppercase">Code Quality</span>
+                  <span className="text-xs font-black text-zinc-900 dark:text-white mt-0.5">100% Native</span>
+                  <span className="text-[8px] text-zinc-400 mt-0.5 font-medium">Clean Arch</span>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/50 flex flex-col">
+                  <span className="text-[9px] font-mono font-bold text-accent-purple uppercase">Support</span>
+                  <span className="text-xs font-black text-zinc-900 dark:text-white mt-0.5">24/7 Slack</span>
+                  <span className="text-[8px] text-zinc-400 mt-0.5 font-medium">Dedicated PM</span>
+                </div>
               </div>
 
               {/* Action */}
